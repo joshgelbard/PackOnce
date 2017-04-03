@@ -1,4 +1,4 @@
-## Trip packing planner (name TBD)
+## PackOnce
 
 ### Background
 
@@ -42,50 +42,46 @@ To avoid spending a lot of time setting up our development environments just rig
 
 #### Data storage
 
-To offer destination-based packing suggestions, this app will need to record completed trip data in a database. When a user starts a new trip, it will query the database to see what the most popular items are for that destination. User authentication will require database access as well. Other data (active and archived trips for the local user) can be stored and updated locally with [AsyncStorage](https://facebook.github.io/react-native/docs/asyncstorage.html). We’ll use a Postgres database hosted on AWS and write the backend in Ruby on Rails. Our frontend components will trigger data retrieval asynchronously with the React Native Fetch API.
+To offer destination-based packing suggestions, this app will need to record completed trip data in a database. When a user starts a new trip, it will query the database to see what the most popular items are for that destination. User authentication will require database access as well. Other data (active and archived trips for the local user) can be stored and updated locally with [AsyncStorage](https://facebook.github.io/react-native/docs/asyncstorage.html). We’ll use a Postgres database hosted on AWS and write the backend in Django. Our frontend components will trigger data retrieval asynchronously with the React Native Fetch API.
 
 ### Group Members & Work Breakdown
 
 Our group consists of three members: Qadir, Jon, and Josh.
 
 Qadir’s responsibilities:
-  * Day 1: User auth frontend
-  * Day 2: Trip show and new trip backend
-  * Day 3: All Trips styling, ActiveTripPreview frontend
-  * Day 4: PreviousTrips frontend, layout, and styling
-  * Day 5: Demo webpage (layout and styling)
+  -  Learn Python & Django. Implement backend for TripShow component and set up barebones structure of frontend. Finish frontend structure of TripShow and add adequate styling. Implement smart suggestions feature for newTrip and TripShow. Create and design demo page.
 
 Josh’s responsibilities:
-  * Day 1: User auth styling
-  * Day 2: Trip show layout and frontend, new trip layout and frontend
-  * Day 3: All trips backend, start smarter suggestions (backend)
-  * Day 4: Home page layout and styling, ActiveTripPreview frontend, layout and styling
-  * Day 5: Fix Android-specific bugs
+- Learn Python & Django. Implement backend for NewTrip component and set up barebones structure of frontend. Finish frontend  features and structure of NewTrip and begin to add adequate styling. Finish frontend features and structure of NewTrip and    finish adequate styling. Add app to google play store
 
 Jon’s responsibilities:
-  * Day 1: User auth backend and initial seed users
-  * Day 2: Trip show styling, new trip styling
-  * Day 3: All trips frontend
-  * Day 4: Acceptable smarter suggestions (backend), Search frontend, layout and styling
-  * Day 5: Emulator for demo page
+  - Learn Python & Django. Implement backend for AllTrips component and set up barebones structure of frontend. Finish frontend structure of AllTrips and add adequate styling. Create seed data. Set up emulator for demo
 
 
 ### Implementation Timeline
 
+
 * Monday
-  * Overall app styling
-  * Auth
+  - Learn Python & Django(all)
 * Tuesday
-  * Trip show
-  * New trip
+  - Implement backend for individual components
+    + NewTrip component(Josh)
+    + TripShow component(Qadir)
+    + AllTrips component(Jon)
+  - Set up barebones frontend display for each component with data
+  -  NewTrip feature "pick an activity" (Josh)
 * Wednesday
-  * AllTrips
-  * ActiveTripPreview
-  * Start smarter suggestions (by destination only?)
+  - Finish frontend structure of each assigned component and complete adequate for the styling
+    + NewTrip component(Josh)
+    + TripShow component(Qadir)
+    + AllTrips component(Jon)
 * Thursday
-  * Acceptable smarter suggestions (with user history?)
-  * Home page (ActiveTripPreview, Search, PreviousTrips)
-  * Search
+  - Create seed data (Jon)
+  - Smart suggestions (Qadir)
+  - Adequate styling on NewTrip component(Josh)
+
 * Friday
-  * Fix Android specific bugs
-  * Demo page with emulator
+  - Add app to google play store(Josh)
+  - Create and design demo page(Qadir)
+  - Set up Android emulator for demo (Jon)
+  - Market application to 10 friend each as well as post on sub-reddit forum(all)
