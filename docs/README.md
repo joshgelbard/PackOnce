@@ -1,4 +1,4 @@
-## PackOnce
+sqlite3## PackOnce
 
 ### Background
 
@@ -42,7 +42,7 @@ To avoid spending a lot of time setting up our development environments just rig
 
 #### Data storage
 
-To offer destination-based packing suggestions, this app will need to record completed trip data in a database. When a user starts a new trip, it will query the database to see what the most popular items are for that destination. User authentication will require database access as well. Other data (active and archived trips for the local user) can be stored and updated locally with [AsyncStorage](https://facebook.github.io/react-native/docs/asyncstorage.html). We’ll use a Postgres database hosted on AWS and write the backend in Django. Our frontend components will trigger data retrieval asynchronously with the React Native Fetch API.
+To offer destination-based packing suggestions, this app will need to record completed trip data in a database. When a user starts a new trip, it will query the database to see what the most popular items are for that destination. User authentication will require database access as well. Other data (active and archived trips for the local user) can be stored and updated locally with [AsyncStorage](https://facebook.github.io/react-native/docs/asyncstorage.html). We’ll use a sqlite3 database hosted on AWS and write the backend in Django. Our frontend components will trigger data retrieval asynchronously with the React Native Fetch API.
 
 ### Group Members & Work Breakdown
 
