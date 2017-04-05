@@ -1,12 +1,16 @@
-from django.http import HttpResponse, JsonResponse
+# from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework.renderers import JSONRenderer
-from rest_framework.parsers import JSONParser
+# from rest_framework.renderers import JSONRenderer
+# from rest_framework.parsers import JSONParser
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from trips.models import Trip
 from trips.serializers import TripSerializer
-# Create your views here.
-@csrf_exempt
-def trip_list(request):
+
+# @csrf_exempt
+@api_view(['GET', 'POST'])
+def trip_list(request, format=None):
     """
     All trips, or create new trip.
     """
@@ -14,38 +18,35 @@ def trip_list(request):
     if request.method == 'GET':
         trips = Trip.objects.all()
         serializer = TripSerializer(trips, many = True)
-        return JsonResponse(serializer.data , safe=False)
+        return Response(serializer.data)
 
     elif request.method == 'POST':
-        data = JSONParser().parse(request)
         serializer = TripSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@csrf_exempt
-def trip_detail(request, pk):
-    """
-    Retrieve, update or delete a trip.
-    """
+# @csrf_exempt
+@api_view(['GET','PUT','DELETE'])
+def trip_detail(request, pk, format=None):
+
     try:
         trip = Trip.objects.get(pk=pk)
     except Trip.DoesNotExist:
-        return HttpResponse(status=404)
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
         serializer = TripSerializer(trip)
-        return JsonResponse(serializer.data)
+        return Response(serializer.data)
 
     elif request.method == 'PUT':
-        data = JSONParser().parse(request)
-        serializer = TripSerializer(trip, data=data)
+        serializer = TripSerializer(trip, data=reuqest.data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse(serializer.data)
-        return JsonResponse(serializer.errors, status=400)
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
         trip.delete()
-        return HttpResponse(status=204)
+        return Response(status=status.HTTP_204_NO_CONTENT)
