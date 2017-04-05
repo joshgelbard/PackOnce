@@ -13,19 +13,19 @@ from trips.serializers import TripSerializer
 
 # @csrf_exempt
 
-class TripList(APIView):
+class TripIndex(APIView):
 
     def get(self, request, format=None):
         trips = Trip.objects.all()
         serializer = TripSerializer(trips, many=True)
         return Response(serializer.data)
 
-        def post(self, request, format=None):
-            serializer = TripSerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data, status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def post(self, request, format=None):
+        serializer = TripSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class TripDetail(APIView):
 
@@ -52,48 +52,3 @@ class TripDetail(APIView):
         trip = self.get_object(pk)
         trip.delete()
         return Response(status.HTTP_204_NO_CONTENT)
-
-
-
-
-# @api_view(['GET', 'POST'])
-# def trip_list(request, format=None):
-#     """
-#     All trips, or create new trip.
-#     """
-#
-#     if request.method == 'GET':
-#         trips = Trip.objects.all()
-#         serializer = TripSerializer(trips, many = True)
-#         return Response(serializer.data)
-#
-#     elif request.method == 'POST':
-#         serializer = TripSerializer(data=data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-#
-# # @csrf_exempt
-# @api_view(['GET','PUT','DELETE'])
-# def trip_detail(request, pk, format=None):
-#
-#     try:
-#         trip = Trip.objects.get(pk=pk)
-#     except Trip.DoesNotExist:
-#         return Response(status=status.HTTP_404_NOT_FOUND)
-#
-#     if request.method == 'GET':
-#         serializer = TripSerializer(trip)
-#         return Response(serializer.data)
-#
-#     elif request.method == 'PUT':
-#         serializer = TripSerializer(trip, data=reuqest.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-#
-#     elif request.method == 'DELETE':
-#         trip.delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)

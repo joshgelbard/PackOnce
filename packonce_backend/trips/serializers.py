@@ -5,8 +5,10 @@ class TripSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trip
         fields = ('id', 'name', 'status', 'date_range')
+
     def create(self, validated_data):
-        return Trips.objects.create(**validated_data)
+        # return (validated_data)
+        return Trip.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)
