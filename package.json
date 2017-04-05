@@ -13,7 +13,10 @@
     "react-redux": "^5.0.3",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
-    "with-query": "^1.0.2"
+    "with-query": "^1.0.2",
+    "react-native-elements": "^0.10.3",
+    "react-native-vector-icons": "^4.0.1",
+    "redux": "^3.6.0"
   },
   "devDependencies": {
     "babel-jest": "19.0.0",

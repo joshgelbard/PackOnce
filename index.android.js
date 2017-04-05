@@ -1,10 +1,10 @@
 import React from 'react';
 import { AppRegistry } from 'react-native';
-import { Provider } from 'react-redux'
-import configureStore from './frontend/store'
+import { Provider } from 'react-redux';
+import configureStore from './frontend/store';
 import { Root } from './frontend/router';
 
-const store = configureStore()
+const store = configureStore();
 
 export default class PackOnce extends React.Component {
   render() {
@@ -12,7 +12,7 @@ export default class PackOnce extends React.Component {
       <Provider store={store}>
         <Root />
       </Provider>
-    )
+    );
   }
 }
 
