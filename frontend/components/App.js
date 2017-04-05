@@ -1,11 +1,9 @@
 import React from 'react';
-import NewTrip from './new_trip/new_trip';
+import { Root } from '../router';
 
 class App extends React.Component {
   render() {
-    return (
-      <NewTrip />
-    );
+    return <Root />;
   }
 }
 
