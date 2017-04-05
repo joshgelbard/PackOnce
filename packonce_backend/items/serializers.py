@@ -10,8 +10,8 @@ class ItemSerializer(serializers.ModelSerializer):
         return Item.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
-        instance.name = validated_data.get('name', instane.name)
-        instance.suggested_category = validated_data.get('suggested_item', instance.suggested_item)
+        instance.name = validated_data.get('name', instance.name)
+        instance.suggested_category = validated_data.get('suggested_category', instance.suggested_category)
         instance.picture = validated_data.get('picture', instance.picture)
         instance.save()
         return instance
