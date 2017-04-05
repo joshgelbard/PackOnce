@@ -1,28 +1,29 @@
 import React from 'react';
-import { AppRegistry, ListView, View, Text, StyleSheet } from 'react-native';
+import { AppRegistry, ListView, View, Text, TextInput, StyleSheet } from 'react-native';
 import { CheckBox } from 'react-native-elements';
+// import { FormLabel, FormInput } from 'react-native-elements';
 
-// Row data (hard-coded)
-const rows = {
-  'Toiletries': [
-    {id: 0, text: 'Toothbrush', checked: true},
-    {id: 1, text: 'Shampoo', checked: true},
-    {id: 2, text: 'Shaving Cream', checked: true},
-  ],
-  'Electronics': [
-    {id: 3, text: 'Tablet', checked: true},
-    {id: 4, text: 'Cell Phone', checked: true},
-  ],
+const backendData = {
+  0: {id: 0, text: 'Toothbrush', checked: true, category: 'Toiletries'},
+  1: {id: 1, text: 'Shampoo', checked: true, category: 'Toiletries'},
+  3: {id: 2, text: 'Shaving Cream', checked: true, category: 'Toiletries'},
+  4: {id: 3, text: 'Tablet', checked: true, category: 'Electronics'},
+  5: {id: 4, text: 'Cell Phone', checked: true, category: 'Electronics'},
 };
+
+var rows = {};
+Object.keys(backendData).forEach( key => {
+  if (!rows[backendData[key].category]) {
+    rows[backendData[key].category] = [];
+  }
+  rows[backendData[key].category].push(backendData[key]);
+});
 
 // Row and section comparison functions
 const rowHasChanged = (r1, r2) => {
-  console.log("here");
-  console.log(r1);
-  console.log(r2);
   return(r1.checked === r2.checked);
 };
-const sectionHeaderHasChanged = (s1, s2) => s1 !== s2;
+const sectionHeaderHasChanged = (s1, s2) => s1 === s2;
 
 // DataSource template object
 const ds = new ListView.DataSource({rowHasChanged, sectionHeaderHasChanged});
@@ -32,8 +33,10 @@ export default class TripShow extends React.Component {
   constructor() {
     super();
     this.state = {
-      dataSource: ds.cloneWithRowsAndSections(rows)
+      dataSource: ds.cloneWithRowsAndSections(rows),
+      text: ""
     };
+    this.addRow = this.addRow.bind(this);
   }
 
   renderRow(rowData, sectionId) {
@@ -58,11 +61,42 @@ export default class TripShow extends React.Component {
     );
   }
 
+  addRow() {
+    if (!rows["other"]) {
+      rows["other"] = [];
+    }
+    rows["other"].push({text: this.state.text, checked: false, category: 'other'});
+    this.setState({dataSource: this.state.dataSource
+      .cloneWithRowsAndSections(rows)});
+  }
+
   render() {
-    console.log("rerender");
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Brazil 2017</Text>
+        <CheckBox containerStyle={styles.row}
+          onPress={() => {
+            styles.textInput={display: "flex"};
+            this.forceUpdate();
+          }}
+          center
+          title='Add Item'
+          iconRight
+          iconType='material'
+          checkedIcon='clear'
+          uncheckedIcon='add'
+          checkedColor='red'
+          checked={this.state.checked}
+        />
+        <TextInput
+          style={styles.textInput}
+          placeholder="Type here!"
+          onChangeText={(text) => this.setState({text})}
+          onSubmitEditing={() => {
+            styles.textInput={display: "none"};
+            this.addRow();
+          }}
+        />
         <ListView
           style={styles.container}
           dataSource={this.state.dataSource}
@@ -95,5 +129,8 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     fontWeight: 'bold',
     textAlign: 'center'
+  },
+  textInput: {
+    display: "none",
   }
 });
