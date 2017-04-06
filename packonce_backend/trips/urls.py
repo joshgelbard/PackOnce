@@ -4,7 +4,7 @@ from trips import views
 
 
 urlpatterns = [
-    url(r'^trips/$', views.TripList.as_view()),
+    url(r'^trips/$', views.TripIndex.as_view()),
     url(r'^trips/(?P<pk>[0-9]+)/$', views.TripDetail.as_view()),
 ]
 

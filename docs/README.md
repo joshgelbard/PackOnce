@@ -10,7 +10,6 @@ To make this this application as user-friendly and efficient as possible, this a
 
 The minimum functionality required to make this app useful:
 
-- [ ] get a suggested packing list based on chosen activities, destination, date
 - [ ] customize packing list for a trip before beginning to pack
 - [ ] check things off a list while packing; archive a finished list
 - [ ] access past trips

@@ -13,12 +13,12 @@ class ItemIndex(APIView):
         serializer = ItemSerializer(items, many=True)
         return Response(serializer.data)
 
-        def post(self, request, format=None):
-            serializer = ItemSerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data, status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def post(self, request, format=None):
+        serializer = ItemSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ItemDetail(APIView):
 
@@ -29,19 +29,19 @@ class ItemDetail(APIView):
             raise Http404
 
     def get(self, reuqest, pk, format=None):
-        trip = self.get_object(pk)
-        serializer = ItemSerializer(trip)
+        item = self.get_object(pk)
+        serializer = ItemSerializer(item)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
-        trip = self.get_object(pk)
-        serializer = ItemSerializer(trip, data= request.data)
+        item = self.get_object(pk)
+        serializer = ItemSerializer(item, data= request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
-        trip = self.get_object(pk)
-        trip.delete()
+        item = self.get_object(pk)
+        item.delete()
         return Response(status.HTTP_204_NO_CONTENT)

@@ -1,14 +1,39 @@
-items: id, name, suggested_category, picture
-  suggested_category based on most common category in existing trip_items of this type
+# Schema Information
 
-tags: id, name, tag_type, coords, picture
-  allowed values for tag_type at present: ‘ACTIVITY’, ‘DESTINATION’, ‘WEATHER’
-  coords are destination only; used with trips date_range for grabbing current weather conditions
-  picture is also for destination
+## items
+column name        | data type | details
+-------------------|-----------|-----------------------
+id                 | integer   | not null, primary key
+name               | string    | not null
+suggested_category | string    | not null
 
-trips: id, status, date_range
-  status: active or archived. canceled trips are deleted
 
-trip_item: name, status, category
+## trips
+column name    | data type | details
+---------------|-----------|-----------------------
+id             | integer   | not null, primary key
+name           | string    | not null
+status         | boolean   | not null
+date_range     | string    | not null
 
-item_taggings join items, tags
+## trip_items
+column name | data type | details
+------------|-----------|-----------------------
+id          | integer   | not null, primary key
+name        | string    | not null
+category    | string    | not null
+trip_id     | integer   | not null
+
+## tags
+column name | data type | details
+------------|-----------|-----------------------
+id          | integer   | not null, primary key
+name        | string    | not null
+tag_coords  | string    | not null
+
+## trip_tagging
+column name | data type | details
+------------|-----------|-----------------------
+id          | integer   | not null, primary key
+trip_id     | integer   | not null, foreign key
+tag_id      | integer   | not null, foreign key
