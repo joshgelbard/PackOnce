@@ -12,6 +12,6 @@ class TripSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)
         instance.status = validated_data.get('status', instance.status)
-        instance.date_range = validated_data.get('data_range', instance.data_range)
+        instance.date_range = validated_data.get('date_range', instance.date_range)
         instance.save()
         return instance

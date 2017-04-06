@@ -2,40 +2,40 @@ from rest_framework.views import APIView
 from django.http import Http404
 from rest_framework.response import Response
 from rest_framework import status
-from items.models import Item
-from items.serializers import ItemSerializer
+from trip_items.models import TripItem
+from trip_items.serializers import TripItemSerializer
 # Create your views here.
 
-class ItemIndex(APIView):
+class TripItemIndex(APIView):
 
     def get(self, request, format=None):
-        items = Item.objects.all()
-        serializer = ItemSerializer(items, many=True)
+        items = TripItem.objects.all()
+        serializer = TripItemSerializer(items, many=True)
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = ItemSerializer(data=request.data)
+        serializer = TripItemSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class ItemDetail(APIView):
+class TripItemDetail(APIView):
 
     def get_object(self, pk):
         try:
-            return Item.objects.get(pk=pk)
-        except Item.DoesNotExist:
+            return TripItem.objects.get(pk=pk)
+        except TripItem.DoesNotExist:
             raise Http404
 
     def get(self, reuqest, pk, format=None):
         item = self.get_object(pk)
-        serializer = ItemSerializer(item)
+        serializer = TripItemSerializer(item)
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
         item = self.get_object(pk)
-        serializer = ItemSerializer(item, data= request.data)
+        serializer = TripItemSerializer(item, data= request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
