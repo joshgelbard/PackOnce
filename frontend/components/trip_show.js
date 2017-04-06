@@ -37,6 +37,7 @@ export default class TripShow extends React.Component {
       text: ""
     };
     this.addRow = this.addRow.bind(this);
+    this.addHeader = this.addHeader.bind(this);
   }
 
   renderRow(rowData, sectionId) {
@@ -70,7 +71,19 @@ export default class TripShow extends React.Component {
       .cloneWithRowsAndSections(rows)});
   }
 
+  addHeader() {
+    if (!rows[this.state.text]) {
+      rows[this.state.text] = [];
+    }
+    console.log("in addheader");
+    console.log(rows);
+    this.setState({dataSource: this.state.dataSource
+      .cloneWithRowsAndSections(rows)});
+  }
+
   render() {
+    console.log("rerender");
+    console.log(rows);
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Brazil 2017</Text>
@@ -80,21 +93,25 @@ export default class TripShow extends React.Component {
             this.forceUpdate();
           }}
           center
-          title='Add Item'
+          title='Add Category'
           iconRight
           iconType='material'
           checkedIcon='clear'
           uncheckedIcon='add'
           checkedColor='red'
-          checked={this.state.checked}
+          checked={false}
         />
         <TextInput
+          value={this.state.text}
           style={styles.textInput}
           placeholder="Type here!"
           onChangeText={(text) => this.setState({text})}
           onSubmitEditing={() => {
             styles.textInput={display: "none"};
-            this.addRow();
+            console.log("the state text");
+            console.log(this.state.text);
+            this.addHeader();
+            this.state.text = "";
           }}
         />
         <ListView
@@ -102,6 +119,7 @@ export default class TripShow extends React.Component {
           dataSource={this.state.dataSource}
           renderRow={this.renderRow.bind(this)}
           renderSectionHeader={this.renderSectionHeader}
+          enableEmptySections={true}
         />
       </View>
     );
@@ -128,7 +146,7 @@ const styles = StyleSheet.create({
     padding: 15,
     marginBottom: 5,
     fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   textInput: {
     display: "none",
