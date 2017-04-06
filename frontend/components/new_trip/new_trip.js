@@ -41,12 +41,6 @@ export const styles = StyleSheet.create({
   bodyContainer: {
     flex: 1
   },
-  selected: {
-    backgroundColor: 'blue'
-  },
-  unselected: {
-    backgroundColor: 'white'
-  },
   bigText: {
     fontSize: 24
   },

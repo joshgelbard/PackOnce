@@ -3,6 +3,14 @@ import { ScrollView } from 'react-native'
 import { Text, List, ListItem, Button } from 'react-native-elements'
 import { NewTripStep, styles } from './new_trip'
 
+
+styles.selected = {
+  backgroundColor: 'blue'
+}
+styles.unselected = {
+  backgroundColor: 'white'
+}
+
 const _list = ['1234', '2345', '3456', '4567', 'a1234', 'a2345', 'a3456', 'x4567', '12j34', ]
 
 class AddActivities extends React.Component {
