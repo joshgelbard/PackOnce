@@ -7,7 +7,6 @@ class TripSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'status', 'date_range')
 
     def create(self, validated_data):
-        # return (validated_data)
         return Trip.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
