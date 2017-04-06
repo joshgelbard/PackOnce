@@ -1,6 +1,8 @@
 import React from 'react';
-import { AppRegistry, ListView, View, Text, TextInput, StyleSheet } from 'react-native';
-import { CheckBox } from 'react-native-elements';
+import { AppRegistry, ListView, View, Text, TextInput,
+  StyleSheet } from 'react-native';
+import { CheckBox, Icon } from 'react-native-elements';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 // import { FormLabel, FormInput } from 'react-native-elements';
 
 const backendData = {
@@ -34,39 +36,58 @@ export default class TripShow extends React.Component {
     super();
     this.state = {
       dataSource: ds.cloneWithRowsAndSections(rows),
-      text: ""
+      text: "",
     };
     this.addRow = this.addRow.bind(this);
     this.addHeader = this.addHeader.bind(this);
+    this.renderSectionHeader = this.renderSectionHeader.bind(this);
   }
 
   renderRow(rowData, sectionId) {
-    return (
-      <CheckBox containerStyle={styles.row}
-        title={rowData.text}
-        checked={rowData.checked}
-        onPress={() => {
-          rowData.checked = !rowData.checked;
-          this.setState({dataSource: this.state.dataSource
-            .cloneWithRowsAndSections(rows)});
-        }}
-      />
-    );
+    if(rowData.text !== ""){
+      return (
+        <CheckBox containerStyle={styles.row}
+          title={rowData.text}
+          checked={rowData.checked}
+          onPress={() => {
+            rowData.checked = !rowData.checked;
+            this.setState({dataSource: this.state.dataSource
+              .cloneWithRowsAndSections(rows)});
+          }}
+        />
+      );
+    }
+    else {
+      return (
+        <TextInput
+          value={this.state.text}
+          style={styles.newItem}
+          placeholder="Type here!"
+          onChangeText={(text) => this.setState({text})}
+          onSubmitEditing={() => {
+            styles.newItem={display: "none"};
+            this.addRow(sectionId);
+            this.state.text = "";
+          }}
+        />
+      );
+    }
   }
 
   renderSectionHeader(sectionRows, sectionId) {
     return (
-      <Text style={styles.header}>
-        {sectionId} ({sectionRows.length})
-      </Text>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>{sectionId} ({sectionRows.length})</Text>
+        <Icon color="white" name='add' onPress={() => {
+          this.addRow(sectionId);
+          styles.newItem={display: "flex"};
+        }}/>
+      </View>
     );
   }
 
-  addRow() {
-    if (!rows["other"]) {
-      rows["other"] = [];
-    }
-    rows["other"].push({text: this.state.text, checked: false, category: 'other'});
+  addRow(sectionId) {
+    rows[sectionId].push({text: this.state.text, checked: false, category: sectionId});
     this.setState({dataSource: this.state.dataSource
       .cloneWithRowsAndSections(rows)});
   }
@@ -75,15 +96,11 @@ export default class TripShow extends React.Component {
     if (!rows[this.state.text]) {
       rows[this.state.text] = [];
     }
-    console.log("in addheader");
-    console.log(rows);
     this.setState({dataSource: this.state.dataSource
       .cloneWithRowsAndSections(rows)});
   }
 
   render() {
-    console.log("rerender");
-    console.log(rows);
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Brazil 2017</Text>
@@ -108,19 +125,19 @@ export default class TripShow extends React.Component {
           onChangeText={(text) => this.setState({text})}
           onSubmitEditing={() => {
             styles.textInput={display: "none"};
-            console.log("the state text");
-            console.log(this.state.text);
             this.addHeader();
             this.state.text = "";
           }}
         />
-        <ListView
-          style={styles.container}
-          dataSource={this.state.dataSource}
-          renderRow={this.renderRow.bind(this)}
-          renderSectionHeader={this.renderSectionHeader}
-          enableEmptySections={true}
-        />
+        <KeyboardAwareScrollView>
+          <ListView
+            style={styles.container}
+            dataSource={this.state.dataSource}
+            renderRow={this.renderRow.bind(this)}
+            renderSectionHeader={this.renderSectionHeader}
+            enableEmptySections={true}
+          />
+        </KeyboardAwareScrollView>
       </View>
     );
   }
@@ -128,16 +145,26 @@ export default class TripShow extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1
+  },
+  container1: {
     flex: 1,
+    paddingHorizontal: 20,
+    paddingTop: 20
   },
   row: {
     padding: 15,
     marginBottom: 5,
   },
   header: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
     padding: 15,
     marginBottom: 5,
     backgroundColor: 'steelblue',
+  },
+  headerText: {
     color: 'white',
     fontWeight: 'bold',
   },
@@ -149,6 +176,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   textInput: {
+    display: "none",
+  },
+  newItem: {
     display: "none",
   }
 });
