@@ -7,7 +7,16 @@ const RootReducer = combineReducers({
   TripDetail: TripDetailReducer
 })
 
-const configureStore = (preloadedState = {}) => {
+const _preloadedState = {
+  TripDetail: {
+    activities: {
+      0: { id: 0, name: 'Camping', selected: false },
+      1: { id: 1, name: 'Skiing', selected: false }
+    }
+  }
+}
+
+const configureStore = (preloadedState = _preloadedState) => {
   return createStore(RootReducer, preloadedState, applyMiddleware(thunk));
 };
 

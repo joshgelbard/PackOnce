@@ -10,14 +10,14 @@ export class NewTripStep extends React.Component {
   render() {
     const { header, body, footer } = this.props
     return (
-      <View style={styles.container}>
-        <View style={styles.headerContainer}>
+      <View style={newTripStyles.container}>
+        <View style={newTripStyles.headerContainer}>
           { header }
         </View>
-        <View style={styles.bodyContainer}>
+        <View style={newTripStyles.bodyContainer}>
           { body }
         </View>
-        <View style={styles.footerContainer}>
+        <View style={newTripStyles.footerContainer}>
           { footer }
         </View>
       </View>
@@ -25,7 +25,7 @@ export class NewTripStep extends React.Component {
   }
 }
 
-export const styles = StyleSheet.create({
+export const newTripStyles = StyleSheet.create({
   container: {
     flex: 1
   },

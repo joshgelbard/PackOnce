@@ -1,90 +1,93 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { ScrollView } from 'react-native'
+import { ScrollView, StyleSheet } from 'react-native'
 import { Text, List, ListItem, Button } from 'react-native-elements'
-import { NewTripStep, styles } from './new_trip'
-import { getSuggestedItems } from '../../actions/trip_actions'
+import { NewTripStep, newTripStyles } from './new_trip'
+import { getSuggestedItems, receiveActivity } from '../../actions/trip_actions'
 
-
-styles.selected = {
-  backgroundColor: 'blue'
-}
-styles.unselected = {
-  backgroundColor: 'white'
-}
+const addActivitiesStyles = StyleSheet.create({
+  selected: {
+    backgroundColor: 'blue'
+  },
+  unselected: {
+    backgroundColor: 'white'
+  }
+})
 
 class AddActivities extends React.Component {
   constructor(props) {
     super(props)
-    const selectedItems = {}
-    props.activitiesList.forEach( el => { selectedItems[el] = false } )
-    this.state = { selectedItems }
   }
 
-  makeListItem(item, key) {
-    const isSelected = this.state.selectedItems[item]
+  makeListItem(activity) {
     return <ListItem
-      containerStyle={ [styles.unselected, isSelected && styles.selected] }
-      title={item}
-      onPress={ () => this.handlePress(item) }
+      containerStyle={ [addActivitiesStyles.unselected, activity.selected && addActivitiesStyles.selected] }
+      title={activity.name}
+      onPress={ () => this.handlePress(activity) }
       underlayColor={ 'blue' }
-      key={key}
+      key={activity.id}
     />
   }
 
-  handlePress(item) {
-    const { selectedItems } = this.state
-    const wasSelected = selectedItems[item]
-    const newSelected = Object.assign({}, selectedItems, {[item]: !wasSelected})
-    this.setState({ selectedItems: newSelected })
-  }
-
-  handleSubmit() {
-    const selectedItemsList = Object.keys(this.state.selectedItems)
-      .filter(key => this.state.selectedItems[key])
-    this.props.getSuggestedItems(selectedItemsList)
+  handlePress(activity) {
+    const newActivity = Object.assign({}, activity, { selected: !activity.selected })
+    this.props.receiveActivity(newActivity)
   }
 
   render() {
-    const listItems = this.props.activitiesList.map( (activity, idx) => {
-      return this.makeListItem(activity, idx)
+    const listItems = Object.keys(this.props.activities).map( (id) => {
+      return this.makeListItem(this.props.activities[id])
     })
     return (
       <ScrollView>
         <List>
           { listItems }
         </List>
-        <Button title="Test suggestedItems" onPress={ () => this.handleSubmit() } />
       </ScrollView>
     )
   }
 }
 
-const AddActivityScreen = (props) => {
-  const continueButton = (
-    <Button
-      title={"Continue"}
-      onPress={() => props.navigation.navigate('SuggestedItems')}
-    />
-  )
+class AddActivityScreen extends React.Component {
 
-  const prompt = (
-    <Text style={styles.bigText}>
-      What kind of trip?
-    </Text>
-  )
+  handleSubmit() {
+    const selectedActivities = []
+    Object.keys(this.props.activities).forEach( key => {
+      if (this.props.activities[key].selected) {
+        selectedActivities.push(this.props.activities[key].name)
+      }
+    })
+    this.props.getSuggestedItems(selectedActivities)
+      .then( () => this.props.navigation.navigate('SuggestedItems'))
+      .catch( () => this.props.navigation.navigate('SuggestedItems'))
+  }
 
-  const addActivities = <AddActivities/>
+  render() {
+    const { navigation, activities, receiveActivity } = this.props
 
-  return <NewTripStep header={prompt} body={addActivities} footer={continueButton} />
+    const continueButton = (
+      <Button title={"Continue"} onPress={() => this.handleSubmit()} />
+    )
+
+    const prompt = (
+      <Text style={newTripStyles.bigText}>
+        What kind of trip?
+      </Text>
+    )
+
+    const addActivities = <AddActivities activities={activities} receiveActivity={receiveActivity}/>
+
+    return <NewTripStep header={prompt} body={addActivities} footer={continueButton} />
+  }
 }
 
 // TODO: fetch these from backend
-const mapStateToProps = (state) => ({
-  activitiesList: ['Camping', 'Skiing']
-})
+const mapStateToProps = (state) => {
+  return { activities: state.TripDetail.activities }
+}
 
 const mapDispatchToProps = (dispatch) => ({
+  receiveActivity: activity => dispatch(receiveActivity(activity)),
   getSuggestedItems: selectedActivities => dispatch(getSuggestedItems(selectedActivities))
 })
 
