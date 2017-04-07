@@ -1,7 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { ScrollView, View } from 'react-native'
 import { Text, List, ListItem, Button, Icon } from 'react-native-elements'
 import { NewTripStep, styles } from './new_trip'
+import { receiveTrip } from '../../actions/trip_actions'
 
 const _list = ['1234', '2345', '3456', '4567', 'a1234', 'a2345', 'a3456', 'x4567', '12j34', ]
 
@@ -56,7 +58,7 @@ class SuggestedItems extends React.Component {
   }
 }
 
-export const SuggestedItemsScreen = ({ navigation }) => {
+const SuggestedItemsScreen = ({ navigation }) => {
   const continueButton = (
     <Button
       title={"Continue"}
@@ -79,3 +81,13 @@ export const SuggestedItemsScreen = ({ navigation }) => {
 
   return <NewTripStep header={prompt} body={suggestedItems} footer={continueButton} />
 }
+
+const mapStateToProps = (state) => ({
+  suggestedItems: state.items
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  createTrip: trip => dispatch(receiveTrip(trip))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SuggestedItemsScreen)

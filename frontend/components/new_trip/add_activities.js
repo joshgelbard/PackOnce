@@ -1,7 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { ScrollView } from 'react-native'
 import { Text, List, ListItem, Button } from 'react-native-elements'
 import { NewTripStep, styles } from './new_trip'
+import { getSuggestedItems } from '../../actions/trip_actions'
 
 
 styles.selected = {
@@ -10,8 +12,6 @@ styles.selected = {
 styles.unselected = {
   backgroundColor: 'white'
 }
-
-const _list = ['1234', '2345', '3456', '4567', 'a1234', 'a2345', 'a3456', 'x4567', '12j34', ]
 
 class AddActivities extends React.Component {
   constructor(props) {
@@ -39,6 +39,12 @@ class AddActivities extends React.Component {
     this.setState({ selectedItems: newSelected })
   }
 
+  handleSubmit() {
+    const selectedItemsList = Object.keys(this.state.selectedItems)
+      .filter(key => this.state.selectedItems[key])
+    this.props.getSuggestedItems(selectedItemsList)
+  }
+
   render() {
     const listItems = this.props.activitiesList.map( (activity, idx) => {
       return this.makeListItem(activity, idx)
@@ -48,16 +54,17 @@ class AddActivities extends React.Component {
         <List>
           { listItems }
         </List>
+        <Button title="Test suggestedItems" onPress={ () => this.handleSubmit() } />
       </ScrollView>
     )
   }
 }
 
-export const AddActivityScreen = ({ navigation }) => {
+const AddActivityScreen = (props) => {
   const continueButton = (
     <Button
       title={"Continue"}
-      onPress={() => navigation.navigate('SuggestedItems')}
+      onPress={() => props.navigation.navigate('SuggestedItems')}
     />
   )
 
@@ -67,7 +74,18 @@ export const AddActivityScreen = ({ navigation }) => {
     </Text>
   )
 
-  const addActivities = <AddActivities activitiesList={_list} />
+  const addActivities = <AddActivities/>
 
   return <NewTripStep header={prompt} body={addActivities} footer={continueButton} />
 }
+
+// TODO: fetch these from backend
+const mapStateToProps = (state) => ({
+  activitiesList: ['Camping', 'Skiing']
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  getSuggestedItems: selectedActivities => dispatch(getSuggestedItems(selectedActivities))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddActivityScreen)

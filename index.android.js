@@ -1,10 +1,18 @@
 import React from 'react';
 import { AppRegistry } from 'react-native';
-import App from './frontend/components/App';
+import { Provider } from 'react-redux'
+import configureStore from './frontend/store'
+import { Root } from './frontend/router';
+
+const store = configureStore()
 
 export default class PackOnce extends React.Component {
   render() {
-    return <App />;
+    return(
+      <Provider store={store}>
+        <Root />
+      </Provider>
+    )
   }
 }
 

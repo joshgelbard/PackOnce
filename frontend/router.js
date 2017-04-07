@@ -2,8 +2,8 @@ import React from 'react'
 import { StackNavigator } from 'react-navigation'
 import { Button } from 'react-native-elements'
 
-import { AddActivityScreen } from './components/new_trip/add_activities'
-import { SuggestedItemsScreen } from './components/new_trip/suggested_items'
+import AddActivityScreen from './components/new_trip/add_activities'
+import SuggestedItemsScreen from './components/new_trip/suggested_items'
 
 export const Root = StackNavigator({
   AddActivity: {
