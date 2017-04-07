@@ -11,7 +11,7 @@ export const Root = StackNavigator({
     navigationOptions: {
       title: 'New Trip: Choose Activities',
       header: ({ navigate }) => ({
-        right: <Button title={"Skip"} onPress={() => navigate('SuggestedItems')}/>
+        right: <Button title={"Skip"} onPress={() => navigate('SuggestedItems', {skippedTo: true})}/>
       })
     }
   },
@@ -20,7 +20,7 @@ export const Root = StackNavigator({
     navigationOptions: {
       title: 'New Trip: Suggested Items',
       header: ({ navigate }) => ({
-        right: <Button title={"Skip"} onPress={() => navigate('TripShow')}/>
+        right: <Button title={"Skip"} onPress={() => navigate('TripShow', {skippedTo: true})}/>
       })
     }
   }

@@ -63,7 +63,7 @@ class AddActivityScreen extends React.Component {
   }
 
   render() {
-    const { navigation, activities, receiveActivity } = this.props
+    const {activities, receiveActivity } = this.props
 
     const continueButton = (
       <Button title={"Continue"} onPress={() => this.handleSubmit()} />
@@ -82,9 +82,10 @@ class AddActivityScreen extends React.Component {
 }
 
 // TODO: fetch these from backend
-const mapStateToProps = (state) => {
-  return { activities: state.TripDetail.activities }
-}
+const mapStateToProps = (state) => ({
+  name: state.NewTrip.name,
+  activities: state.NewTrip.activities
+})
 
 const mapDispatchToProps = (dispatch) => ({
   receiveActivity: activity => dispatch(receiveActivity(activity)),
