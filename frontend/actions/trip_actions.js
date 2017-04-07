@@ -7,6 +7,9 @@ export const RECEIVE_SUGGESTED_ITEMS = "RECEIVE_SUGGESTED_ITEMS"
 export const RECEIVE_ACTIVITY_TYPES = "RECEIVE_ACTIVITY_TYPES"
 export const RECEIVE_TRIP = "RECEIVE_TRIP"
 
+export const CLEAR_ACTIVE_TRIP = "CLEAR_ACTIVE_TRIP"
+
+
 export const receiveActivityTypes = activities => ({
   type: RECEIVE_ACTIVITY_TYPES,
   activities
@@ -25,6 +28,10 @@ export const receiveNewTripItem = item => ({
 export const receiveNewTripActivity = activity => ({
   type: RECEIVE_NEW_TRIP_ACTIVITY,
   activity
+})
+
+export const clearActiveTrip = () => ({
+  type: CLEAR_ACTIVE_TRIP
 })
 
 export const receiveTrip = trip => ({
@@ -59,3 +66,8 @@ export const getSuggestedItems = activities => dispatch => {
       console.log('getSuggestedItems: catch ', res)
     })
 }
+
+export const sendTaggedTripItems = (activities, items) => dispatch => {
+  return APIUtil.sendTaggedTripItems(activities, items)
+    .then( res => dispatch(clearActiveTrip()))
+};

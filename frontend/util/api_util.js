@@ -18,4 +18,15 @@ export const arrayToIdKeyedObject = (array) => {
     obj[item.id] = item;
   });
   return obj;
+}
+
+export const sendTaggedTripItems = (activities, items) => {
+  const activitiesString = activities.join("_");
+  const itemsString = items.join("_");
+  const url = `${SERVER_NAME}/taggings`;
+
+  return fetch(url, {
+    method: 'POST',
+    body: {activities: activitiesString, items: itemsString}
+  });
 };

@@ -141,6 +141,7 @@ export default class TripShow extends React.Component {
           buttonStyle={styles.button}
           icon={{name: 'archive'}}
           title='Archive Trip'
+          onPress={() => this.props.navigation.navigate('HomeView')}
         />
     </KeyboardAwareScrollView>
       </View>
