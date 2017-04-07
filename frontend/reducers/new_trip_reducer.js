@@ -8,10 +8,8 @@ import {
 
 const nullTrip = {id: undefined, name: undefined, activities: {}, items: {} };
 
-const TripDetailReducer = (state = nullTrip, action) => {
+const NewTripReducer = (state = nullTrip, action) => {
   switch (action.type) {
-    case RECEIVE_TRIP:
-      return action.trip;
     case RECEIVE_ACTIVITIES:
       return Object.assign({}, state, { activities: action.activities })
     case RECEIVE_ITEMS:
@@ -29,4 +27,4 @@ const TripDetailReducer = (state = nullTrip, action) => {
   }
 };
 
-export default TripDetailReducer;
+export default NewTripReducer;
