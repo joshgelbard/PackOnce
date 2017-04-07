@@ -6,7 +6,4 @@ class Tagging(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     item = models.CharField(max_length=250, blank=True)
     activity = models.CharField(max_length=250, blank=True)
-    count = models.IntegerField(defualt=0)
-
-    class Meta:
-        ordering = ('created')
+    count = models.IntegerField(default=0)
