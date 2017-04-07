@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppRegistry, ListView, View, Text, TextInput,
   StyleSheet } from 'react-native';
-import { CheckBox, Icon } from 'react-native-elements';
+import { CheckBox, Icon, Button } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 // import { FormLabel, FormInput } from 'react-native-elements';
 
@@ -37,6 +37,8 @@ export default class TripShow extends React.Component {
     this.state = {
       dataSource: ds.cloneWithRowsAndSections(rows),
       text: "",
+      visible: false,
+      activeHeader: ""
     };
     this.addRow = this.addRow.bind(this);
     this.addHeader = this.addHeader.bind(this);
@@ -44,44 +46,42 @@ export default class TripShow extends React.Component {
   }
 
   renderRow(rowData, sectionId) {
-    if(rowData.text !== ""){
-      return (
-        <CheckBox containerStyle={styles.row}
-          title={rowData.text}
-          checked={rowData.checked}
-          onPress={() => {
-            rowData.checked = !rowData.checked;
-            this.setState({dataSource: this.state.dataSource
-              .cloneWithRowsAndSections(rows)});
-          }}
-        />
-      );
-    }
-    else {
-      return (
-        <TextInput
-          value={this.state.text}
-          style={styles.newItem}
-          placeholder="Type here!"
-          onChangeText={(text) => this.setState({text})}
-          onSubmitEditing={() => {
-            styles.newItem={display: "none"};
-            this.addRow(sectionId);
-            this.state.text = "";
-          }}
-        />
-      );
-    }
+    return (
+      <CheckBox containerStyle={styles.row}
+        title={rowData.text}
+        checked={rowData.checked}
+        onPress={() => {
+          rowData.checked = !rowData.checked;
+          this.setState({dataSource: this.state.dataSource
+            .cloneWithRowsAndSections(rows)});
+        }}
+      />
+    );
   }
 
   renderSectionHeader(sectionRows, sectionId) {
+    // let condition = (this.state.activeHeader === sectionId && this.state.visible);
+    let condition = (this.state.visible);
+
     return (
+      <View>
       <View style={styles.header}>
         <Text style={styles.headerText}>{sectionId} ({sectionRows.length})</Text>
         <Icon color="white" name='add' onPress={() => {
-          this.addRow(sectionId);
-          styles.newItem={display: "flex"};
+          this.setState({visible: true, activeHeader: sectionId, dataSource: this.state.dataSource
+            .cloneWithRowsAndSections(rows)});
         }}/>
+      </View>
+      <TextInput
+        value={this.state.text}
+        style={[styles.newItemHidden, condition && styles.newItemShow]}
+        placeholder="Type here!"
+        onChangeText={(text) => this.setState({text})}
+        onSubmitEditing={() => {
+          this.setState({visible: false, text: "", activeHeader: ""});
+          this.addRow(sectionId);
+        }}
+      />
       </View>
     );
   }
@@ -126,7 +126,7 @@ export default class TripShow extends React.Component {
           onSubmitEditing={() => {
             styles.textInput={display: "none"};
             this.addHeader();
-            this.state.text = "";
+            this.setState({text: ""});
           }}
         />
         <KeyboardAwareScrollView>
@@ -137,7 +137,12 @@ export default class TripShow extends React.Component {
             renderSectionHeader={this.renderSectionHeader}
             enableEmptySections={true}
           />
-        </KeyboardAwareScrollView>
+        <Button
+          buttonStyle={styles.button}
+          icon={{name: 'archive'}}
+          title='Archive Trip'
+        />
+    </KeyboardAwareScrollView>
       </View>
     );
   }
@@ -146,11 +151,6 @@ export default class TripShow extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1
-  },
-  container1: {
-    flex: 1,
-    paddingHorizontal: 20,
-    paddingTop: 20
   },
   row: {
     padding: 15,
@@ -176,9 +176,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   textInput: {
-    display: "none",
+    display: "none"
   },
-  newItem: {
-    display: "none",
+  newItemHidden: {
+    display: "none"
+  },
+  newItemShow: {
+    display: "flex"
+  },
+  button: {
+    padding: 15,
+    marginBottom: 10,
+    backgroundColor: "green"
   }
 });
