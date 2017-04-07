@@ -2,7 +2,7 @@ from rest_framework import serializers
 from taggings.models import Tagging
 
 class TaggingSerializer(serializers.ModelSerializer):
-    class Model:
+    class Meta:
         model = Tagging
         fields = ('id', 'item', 'activity', 'count')
 
