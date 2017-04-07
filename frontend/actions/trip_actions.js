@@ -1,12 +1,10 @@
 import * as APIUtil from '../util/api_util'
 
-
 export const RECEIVE_NEW_TRIP_ITEM = "RECEIVE_NEW_TRIP_ITEM"
 export const RECEIVE_NEW_TRIP_ACTIVITY = "RECEIVE_NEW_TRIP_ACTIVITY"
 export const RECEIVE_SUGGESTED_ITEMS = "RECEIVE_SUGGESTED_ITEMS"
 export const RECEIVE_ACTIVITY_TYPES = "RECEIVE_ACTIVITY_TYPES"
-
-export const GET_SUGGESTED_ITEMS = "GET_SUGGESTED_ITEMS"
+export const RECEIVE_TRIP = "RECEIVE_TRIP"
 
 
 export const receiveActivityTypes = activities => ({
@@ -28,6 +26,16 @@ export const receiveNewTripActivity = activity => ({
   type: RECEIVE_NEW_TRIP_ACTIVITY,
   activity
 })
+
+export const receiveTrip = trip => ({
+  type: RECEIVE_TRIP,
+  trip
+})
+
+// this should store it in the phone
+export const createTrip = trip => {
+  return receiveTrip(trip)
+}
 
 export const getSuggestedItems = activities => dispatch => {
   console.log('trying to getSuggestedItems...');

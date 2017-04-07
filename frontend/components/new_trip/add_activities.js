@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { ScrollView, StyleSheet } from 'react-native'
 import { Text, List, ListItem, Button } from 'react-native-elements'
 import { NewTripStep, newTripStyles } from './new_trip'
-import { getSuggestedItems, receiveActivity } from '../../actions/trip_actions'
+import { getSuggestedItems, receiveNewTripActivity } from '../../actions/trip_actions'
 
 const addActivitiesStyles = StyleSheet.create({
   selected: {
@@ -31,7 +31,7 @@ class AddActivities extends React.Component {
 
   handlePress(activity) {
     const newActivity = Object.assign({}, activity, { selected: !activity.selected })
-    this.props.receiveActivity(newActivity)
+    this.props.receiveNewTripActivity(newActivity)
   }
 
   render() {
@@ -63,7 +63,7 @@ class AddActivityScreen extends React.Component {
   }
 
   render() {
-    const {activities, receiveActivity } = this.props
+    const {activities, receiveNewTripActivity } = this.props
 
     const continueButton = (
       <Button title={"Continue"} onPress={() => this.handleSubmit()} />
@@ -75,7 +75,7 @@ class AddActivityScreen extends React.Component {
       </Text>
     )
 
-    const addActivities = <AddActivities activities={activities} receiveActivity={receiveActivity}/>
+    const addActivities = <AddActivities activities={activities} receiveNewTripActivity={receiveNewTripActivity}/>
 
     return <NewTripStep header={prompt} body={addActivities} footer={continueButton} />
   }
@@ -88,7 +88,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  receiveActivity: activity => dispatch(receiveActivity(activity)),
+  receiveNewTripActivity: activity => dispatch(receiveNewTripActivity(activity)),
   getSuggestedItems: selectedActivities => dispatch(getSuggestedItems(selectedActivities))
 })
 

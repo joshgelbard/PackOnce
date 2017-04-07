@@ -3,9 +3,7 @@ import { connect } from 'react-redux'
 import { ScrollView, View, StyleSheet } from 'react-native'
 import { Text, List, ListItem, Button, Icon } from 'react-native-elements'
 import { NewTripStep, newTripStyles } from './new_trip'
-import { receiveTrip, receiveItem } from '../../actions/trip_actions'
-
-const _list = ['1234', '2345', '3456', '4567', 'a1234', 'a2345', 'a3456', 'x4567', '12j34', ]
+import { createTrip, receiveNewTripItem } from '../../actions/trip_actions'
 
 const suggestedItemsStyles = StyleSheet.create({
   selected: {
@@ -37,7 +35,7 @@ class SuggestedItems extends React.Component {
 
   handlePress(item) {
     const newItem = Object.assign({}, item, { selected: !item.selected })
-    this.props.receiveItem(newItem)
+    this.props.receiveNewTripItem(newItem)
   }
 
   render() {
@@ -72,7 +70,7 @@ class SuggestedItemsScreen extends React.Component {
   }
 
   render() {
-    const { items, activities, createTrip, receiveItem } = this.props
+    const { items, activities, createTrip, receiveNewTripItem } = this.props
 
     const continueButton = (
       <Button title={"Continue"} onPress={() => this.handleSubmit()} />
@@ -93,7 +91,7 @@ class SuggestedItemsScreen extends React.Component {
       items={items}
       activities={activities}
       createTrip={createTrip}
-      receiveItem={receiveItem}
+      receiveNewTripItem={receiveNewTripItem}
     />
 
     return <NewTripStep header={prompt} body={suggestedItems} footer={continueButton} />
@@ -108,7 +106,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   createTrip: trip => dispatch(receiveTrip(trip)),
-  receiveItem: item => dispatch(receiveItem(item))
+  receiveNewTripItem: item => dispatch(receiveNewTripItem(item))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SuggestedItemsScreen)
