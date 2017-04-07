@@ -24,12 +24,12 @@ class TaggingIndex(APIView):
                     count1 = tag[0].count
                     tag[0].count = count1 + 1
                     tag[0].save()
-                    # return Response(TaggingSerializer(tag, many=True).data)
-                serializer = TaggingSerializer(data=data)
-                if serializer.is_valid():
-                    serializer.save()
                 else:
-                    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+                    serializer = TaggingSerializer(data=data)
+                    if serializer.is_valid():
+                        serializer.save()
+                    else:
+                        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(items)
 
 
