@@ -5,8 +5,6 @@ from rest_framework import status
 from taggings.models import Tagging
 from taggings.serializers import TaggingSerializer
 
-# @csrf_exempt
-
 class TaggingIndex(APIView):
 
     def get(self, request, format=None):
@@ -15,12 +13,18 @@ class TaggingIndex(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        items = request.data['item'].split('_')
+        items = request.data['items'].split('_')
         activities = request.data['activities'].split('_')
 
         for item in items:
             for activity in activities:
                 data = {"item": item, "activity": activity}
+                tag = Tagging.objects.filter(item=item, activity=activity)
+                if tag:
+                    count1 = tag[0].count
+                    tag[0].count = count1 + 1
+                    tag[0].save()
+                    # return Response(TaggingSerializer(tag, many=True).data)
                 serializer = TaggingSerializer(data=data)
                 if serializer.is_valid():
                     serializer.save()
@@ -32,29 +36,9 @@ class TaggingIndex(APIView):
 class TaggingTrip(APIView):
 
     def get(self, request, format=None):
-        return Response(request.data)
-
-# class TripDetail(APIView):
-#
-#     def get_object(self, pk):
-#         try:
-#             return Trip.objects.get(pk=pk)
-#         except Trip.DoesNotExist:
-#             raise Http404
-#
-#     def get(self, reuqest, pk, format=None):
-#         trip = self.get_object(pk)
-#         serializer = TripSerializer(trip)
-#         return Response(serializer.data)
-#
-#     def put(self, request, pk, format=None):
-#         trip = self.get_object(pk)
-#         serializer = TripSerializer(trip, data= request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-#
-#     def delete(self, request, pk, format=None):
-#         trip = self.get_object(pk)
-#         trip.delete()
+        activities = request.GET.get('activities').split('_')
+        tags = []
+        for activity in activities:
+            tags += Tagging.objects.filter(activity=activity)
+        serializer = TaggingSerializer(tags, many=True)
+        return Response(serializer.data)
