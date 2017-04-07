@@ -1,12 +1,14 @@
-import { combineReducers, createStore, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
-import NewTripReducer from './reducers/new_trip_reducer'
+import { combineReducers, createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import NewTripReducer from './reducers/new_trip_reducer';
+import AllTripsReducer from './reducers/new_trip_reducer';
 // import TripShowReducer from './reducers/trip_show'
-import { Root } from './router'
+import { Root } from './router';
 
 const RootReducer = combineReducers({
-  NewTrip: NewTripReducer
-})
+  NewTrip: NewTripReducer,
+  AllTrips: AllTripsReducer
+});
 
 const _preloadedState = {
   NewTrip: {
@@ -20,6 +22,12 @@ const _preloadedState = {
       1: { id: 1, name: 'Tent', selected: true, category: 'Equipment' }
     }
   },
+
+  AllTrips: {
+    0: {id: 0, name: 'New trip!!', activities: ['Camping', 'Skiing'] },
+    1: {id: 1, name: 'trip 2!!', activities: ['Hiking', 'Camping'] },
+    2: {id: 2, name: 'trip 3!!', activities: [] },
+  }
   // TripShow: {
   //   name: 'Cool trip',
   //   items: {
@@ -28,10 +36,10 @@ const _preloadedState = {
   //   },
   //   activities: ['Camping', 'Skiing']
   // }
-}
+};
 
 const configureStore = (preloadedState = _preloadedState) => {
   return createStore(RootReducer, preloadedState, applyMiddleware(thunk));
 };
 
-export default configureStore
+export default configureStore;
