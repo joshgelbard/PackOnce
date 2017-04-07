@@ -17,15 +17,12 @@ class TaggingIndex(APIView):
         activities = request.data['activities'].split('_')
         categories = request.data['categories'].split('_')
 
-        for item in items:
-            i = 0;
+        for (item, category) in zip(items, categories):
             for activity in activities:
-                data = {"item": item, "activity": activity, "category":categories[i]}
-                i += 1
+                data = {"item": item, "activity": activity, "category":category}
                 tag = Tagging.objects.filter(item=item, activity=activity)
                 if tag:
-                    count1 = tag[0].count
-                    tag[0].count = count1 + 1
+                    tag[0].count += 1
                     tag[0].save()
                 else:
                     serializer = TaggingSerializer(data=data)
@@ -40,9 +37,7 @@ class TaggingTrip(APIView):
 
     def get(self, request, format=None):
         activities = request.GET.get('activities').split('_')
-        tags = []
-        for activity in activities:
-            tags += Tagging.objects.filter(activity=activity)
-
+        limit = int(request.GET.get('limit'))
+        tags = Tagging.objects.filter(activity__in=activities).order_by('-count')[:limit]
         serializer = TaggingSerializer(tags, many=True)
         return Response(serializer.data)
