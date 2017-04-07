@@ -33,12 +33,17 @@ export const receiveActivity = activity => ({
 })
 
 export const getSuggestedItems = activities => dispatch => {
+  console.log('trying to getSuggestedItems...');
   return APIUtil.getSuggestedItems(activities)
     .then( res => {
       if (res.status == 200) {
+        res.json().then( data => console.log('SUCCESS RES=', data));
         dispatch(receiveItems(res))
       } else {
-        consule.log('res status was not 200');
+        console.log('res status was not 200');
       }
+    })
+    .catch( res => {
+      console.log('CATCH RES=', res)
     })
 }
