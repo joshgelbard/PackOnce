@@ -3,23 +3,24 @@ import { AppRegistry, ListView, View, Text, TextInput,
   StyleSheet } from 'react-native';
 import { CheckBox, Icon, Button } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-// import { FormLabel, FormInput } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { sendTaggedTripItems } from '../../actions/trip_actions';
 
-const backendData = {
-  0: {id: 0, text: 'Toothbrush', checked: true, category: 'Toiletries'},
-  1: {id: 1, text: 'Shampoo', checked: true, category: 'Toiletries'},
-  3: {id: 2, text: 'Shaving Cream', checked: true, category: 'Toiletries'},
-  4: {id: 3, text: 'Tablet', checked: true, category: 'Electronics'},
-  5: {id: 4, text: 'Cell Phone', checked: true, category: 'Electronics'},
-};
-
-var rows = {};
-Object.keys(backendData).forEach( key => {
-  if (!rows[backendData[key].category]) {
-    rows[backendData[key].category] = [];
-  }
-  rows[backendData[key].category].push(backendData[key]);
-});
+// const backendData = {
+//   0: {id: 0, name: 'Toothbrush', checked: true, category: 'Toiletries'},
+//   1: {id: 1, name: 'Shampoo', checked: true, category: 'Toiletries'},
+//   3: {id: 2, name: 'Shaving Cream', checked: true, category: 'Toiletries'},
+//   4: {id: 3, name: 'Tablet', checked: true, category: 'Electronics'},
+//   5: {id: 4, name: 'Cell Phone', checked: true, category: 'Electronics'},
+// };
+//
+// var rows = {};
+// Object.keys(backendData).forEach( key => {
+//   if (!rows[backendData[key].category]) {
+//     rows[backendData[key].category] = [];
+//   }
+//   rows[backendData[key].category].push(backendData[key]);
+// });
 
 // Row and section comparison functions
 const rowHasChanged = (r1, r2) => {
@@ -30,30 +31,43 @@ const sectionHeaderHasChanged = (s1, s2) => s1 === s2;
 // DataSource template object
 const ds = new ListView.DataSource({rowHasChanged, sectionHeaderHasChanged});
 
-export default class TripShow extends React.Component {
+class TripShow extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
+    this.rows = {};
+    console.log("here");
+    console.log(this.props);
+    Object.keys(this.props.items).forEach( key => {
+      if (!this.rows[this.props.items[key].category]) {
+        this.rows[this.props.items[key].category] = [];
+      }
+      this.rows[this.props.items[key].category].push(this.props.items[key]);
+    });
+
     this.state = {
-      dataSource: ds.cloneWithRowsAndSections(rows),
-      text: "",
+      dataSource: ds.cloneWithRowsAndSections(this.rows),
+      itemName: "",
       visible: false,
       activeHeader: ""
     };
+
     this.addRow = this.addRow.bind(this);
     this.addHeader = this.addHeader.bind(this);
     this.renderSectionHeader = this.renderSectionHeader.bind(this);
+    this.archiveTrip = this.archiveTrip.bind(this);
   }
 
   renderRow(rowData, sectionId) {
     return (
       <CheckBox containerStyle={styles.row}
-        title={rowData.text}
+        title={rowData.name}
         checked={rowData.checked}
         onPress={() => {
           rowData.checked = !rowData.checked;
           this.setState({dataSource: this.state.dataSource
-            .cloneWithRowsAndSections(rows)});
+            .cloneWithRowsAndSections(this.rows)});
         }}
       />
     );
@@ -69,16 +83,16 @@ export default class TripShow extends React.Component {
         <Text style={styles.headerText}>{sectionId} ({sectionRows.length})</Text>
         <Icon color="white" name='add' onPress={() => {
           this.setState({visible: true, activeHeader: sectionId, dataSource: this.state.dataSource
-            .cloneWithRowsAndSections(rows)});
+            .cloneWithRowsAndSections(this.rows)});
         }}/>
       </View>
       <TextInput
-        value={this.state.text}
+        value={this.state.itemName}
         style={[styles.newItemHidden, condition && styles.newItemShow]}
         placeholder="Type here!"
-        onChangeText={(text) => this.setState({text})}
+        onChangeText={(itemName) => this.setState({itemName})}
         onSubmitEditing={() => {
-          this.setState({visible: false, text: "", activeHeader: ""});
+          this.setState({visible: false, itemName: "", activeHeader: ""});
           this.addRow(sectionId);
         }}
       />
@@ -87,23 +101,33 @@ export default class TripShow extends React.Component {
   }
 
   addRow(sectionId) {
-    rows[sectionId].push({text: this.state.text, checked: false, category: sectionId});
+    this.rows[sectionId].push({name: this.state.itemName, checked: false, category: sectionId});
     this.setState({dataSource: this.state.dataSource
-      .cloneWithRowsAndSections(rows)});
+      .cloneWithRowsAndSections(this.rows)});
   }
 
   addHeader() {
-    if (!rows[this.state.text]) {
-      rows[this.state.text] = [];
+    if (!this.rows[this.state.itemName]) {
+      this.rows[this.state.itemName] = [];
     }
     this.setState({dataSource: this.state.dataSource
-      .cloneWithRowsAndSections(rows)});
+      .cloneWithRowsAndSections(this.rows)});
+  }
+
+  archiveTrip() {
+    let activities = this.props.activities;
+    let categories = Object.keys(this.rows);
+    let items = [];
+    Object.keys(this.rows).forEach( key => {
+      items.push(this.rows[key].name);
+    });
+    this.props.sendTaggedTripItems(items, activities, categories);
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Brazil 2017</Text>
+        <Text style={styles.title}>{this.props.name}</Text>
         <CheckBox containerStyle={styles.row}
           onPress={() => {
             styles.textInput={display: "flex"};
@@ -119,14 +143,14 @@ export default class TripShow extends React.Component {
           checked={false}
         />
         <TextInput
-          value={this.state.text}
+          value={this.state.itemName}
           style={styles.textInput}
           placeholder="Type here!"
-          onChangeText={(text) => this.setState({text})}
+          onChangeText={(itemName) => this.setState({itemName})}
           onSubmitEditing={() => {
             styles.textInput={display: "none"};
             this.addHeader();
-            this.setState({text: ""});
+            this.setState({itemName: ""});
           }}
         />
         <KeyboardAwareScrollView>
@@ -141,13 +165,29 @@ export default class TripShow extends React.Component {
           buttonStyle={styles.button}
           icon={{name: 'archive'}}
           title='Archive Trip'
-          onPress={() => this.props.navigation.navigate('HomeView')}
+          onPress={() => {
+            this.archiveTrip();
+            this.props.navigation.navigate('HomeView');
+          }}
         />
     </KeyboardAwareScrollView>
       </View>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  name: state.TripShow.name,
+  items: state.TripShow.items,
+  activities: state.TripShow.activities
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  sendTaggedTripItems: (items, activities, categories) => dispatch(sendTaggedTripItems(items, activities, categories))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TripShow);
+
 
 const styles = StyleSheet.create({
   container: {
