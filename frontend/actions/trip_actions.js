@@ -1,34 +1,31 @@
 import * as APIUtil from '../util/api_util'
 
-export const RECEIVE_TRIP = "RECEIVE_TRIP"
-export const RECEIVE_ITEM = "RECEIVE_ITEM"
-export const RECEIVE_ACTIVITY = "RECEIVE_ACTIVITY"
-export const RECEIVE_ACTIVITIES = "RECEIVE_ACTIVITIES"
-export const RECEIVE_ITEMS = "RECEIVE_ITEMS"
+
+export const RECEIVE_NEW_TRIP_ITEM = "RECEIVE_NEW_TRIP_ITEM"
+export const RECEIVE_NEW_TRIP_ACTIVITY = "RECEIVE_NEW_TRIP_ACTIVITY"
+export const RECEIVE_SUGGESTED_ITEMS = "RECEIVE_SUGGESTED_ITEMS"
+export const RECEIVE_ACTIVITY_TYPES = "RECEIVE_ACTIVITY_TYPES"
+
 export const GET_SUGGESTED_ITEMS = "GET_SUGGESTED_ITEMS"
 
-export const receiveTrip = trip => ({
-  type: RECEIVE_TRIP,
-  trip
-})
 
-export const receiveActivities = activities => ({
-  type: RECEIVE_ACTIVITIES,
+export const receiveActivityTypes = activities => ({
+  type: RECEIVE_ACTIVITY_TYPES,
   activities
 })
 
-export const receiveItems = items => ({
-  type: RECEIVE_ITEMS,
+export const receiveSuggestedItems = items => ({
+  type: RECEIVE_SUGGESTED_ITEMS,
   items
 })
 
-export const receiveItem = item => ({
-  type: RECEIVE_ITEM,
+export const receiveNewTripItem = item => ({
+  type: RECEIVE_NEW_TRIP_ITEM,
   item
 })
 
-export const receiveActivity = activity => ({
-  type: RECEIVE_ACTIVITY,
+export const receiveNewTripActivity = activity => ({
+  type: RECEIVE_NEW_TRIP_ACTIVITY,
   activity
 })
 
@@ -38,7 +35,7 @@ export const getSuggestedItems = activities => dispatch => {
     .then( res => {
       if (res.status == 200) {
         res.json().then( data => console.log('SUCCESS RES=', data));
-        dispatch(receiveItems(res))
+        dispatch(receiveSuggestedItems(res))
       } else {
         console.log('res status was not 200');
       }
