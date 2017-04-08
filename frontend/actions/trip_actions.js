@@ -57,7 +57,6 @@ export const getTrip = tripId => dispatch => {
 }
 
 export const getSuggestedItems = activities => dispatch => {
-  console.log('trying to getSuggestedItems...');
   return APIUtil.getSuggestedItems(activities)
     .then( res => {
       if (res.status == 200) {
@@ -75,7 +74,7 @@ export const getSuggestedItems = activities => dispatch => {
 }
 
 export const sendTaggedTripItems = (items, activities, categories) => dispatch => {
-  console.log("in the sendTaggedTripItems action");
+
   return APIUtil.sendTaggedTripItems(items, activities, categories)
     .then( res => {
       if (res.status == 200) {
