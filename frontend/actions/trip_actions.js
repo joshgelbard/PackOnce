@@ -5,7 +5,11 @@ export const RECEIVE_NEW_TRIP_ITEM = "RECEIVE_NEW_TRIP_ITEM"
 export const RECEIVE_NEW_TRIP_ACTIVITY = "RECEIVE_NEW_TRIP_ACTIVITY"
 export const RECEIVE_SUGGESTED_ITEMS = "RECEIVE_SUGGESTED_ITEMS"
 export const RECEIVE_ACTIVITY_TYPES = "RECEIVE_ACTIVITY_TYPES"
+
 export const RECEIVE_TRIP = "RECEIVE_TRIP"
+
+export const CLEAR_ACTIVE_TRIP = "CLEAR_ACTIVE_TRIP"
+
 
 export const receiveActivityTypes = activities => ({
   type: RECEIVE_ACTIVITY_TYPES,
@@ -27,6 +31,15 @@ export const receiveNewTripActivity = activity => ({
   activity
 })
 
+export const receiveNewTripName = name => ({
+  type: RECEIVE_TRIP_NAME,
+  name
+})
+
+export const clearActiveTrip = () => ({
+  type: CLEAR_ACTIVE_TRIP
+})
+
 export const receiveTrip = trip => ({
   type: RECEIVE_TRIP,
   trip
@@ -44,6 +57,7 @@ export const getTrip = tripId => dispatch => {
 }
 
 export const getSuggestedItems = activities => dispatch => {
+  console.log('trying to getSuggestedItems...');
   return APIUtil.getSuggestedItems(activities)
     .then( res => {
       if (res.status == 200) {
@@ -59,3 +73,8 @@ export const getSuggestedItems = activities => dispatch => {
       console.log('getSuggestedItems: catch ', res)
     })
 }
+
+export const sendTaggedTripItems = (items, activities, categories) => dispatch => {
+  return APIUtil.sendTaggedTripItems(items, activities, categories)
+    .then( res => dispatch(clearActiveTrip()))
+};

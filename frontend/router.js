@@ -5,10 +5,21 @@ import { Button } from 'react-native-elements';
 import AddActivityScreen from './components/new_trip/add_activities';
 import SuggestedItemsScreen from './components/new_trip/suggested_items';
 import AllTrips from './components/all_trips/all_trips';
+import TripShow from './components/trip_show/trip_show';
 
 const RouteConfigs = {
   AllTrips: {
     screen: AllTrips,
+  },
+  ShowTrip: {
+    screen: TripShow,
+    navigationOptions: {
+      header: {visible: false}
+      // title: 'Show Trip'
+      // header: ({ navigate }) => ({
+      //   right: <Button title={"Archive"} onPress={() => navigate('HomeView')}/>
+      // })
+    }
   },
   AddActivity: {
     screen: AddActivityScreen,
