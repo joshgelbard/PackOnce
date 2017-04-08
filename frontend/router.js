@@ -14,7 +14,8 @@ const RouteConfigs = {
   ShowTrip: {
     screen: TripShow,
     navigationOptions: {
-      title: 'Show Trip'
+      header: {visible: false}
+      // title: 'Show Trip'
       // header: ({ navigate }) => ({
       //   right: <Button title={"Archive"} onPress={() => navigate('HomeView')}/>
       // })

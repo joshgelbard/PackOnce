@@ -37,8 +37,7 @@ class TripShow extends React.Component {
     super(props);
 
     this.rows = {};
-    console.log("here");
-    console.log(this.props);
+
     Object.keys(this.props.items).forEach( key => {
       if (!this.rows[this.props.items[key].category]) {
         this.rows[this.props.items[key].category] = [];
