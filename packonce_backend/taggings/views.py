@@ -19,8 +19,12 @@ class TaggingIndex(APIView):
 
         for (item, category) in zip(items, categories):
             for activity in activities:
+                item = item.title()
+                category = category.title()
+                activity = activity.title()
                 data = {"item": item, "activity": activity, "category":category}
                 tag = Tagging.objects.filter(item=item, activity=activity)
+
                 if tag:
                     tag[0].count += 1
                     tag[0].save()
