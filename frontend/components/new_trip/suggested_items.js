@@ -68,8 +68,8 @@ class SuggestedItemsScreen extends React.Component {
     })
     const trip = { name: this.props.name, activities: selectedActivities, items }
     this.props.createTrip(trip)
-      .then( () => this.props.navigation.navigate('TripShow'))
-      .catch( () => this.props.navigation.navigate('TripShow'))
+      .then( () => this.props.navigation.navigate('ShowTrip'))
+      .catch( () => this.props.navigation.navigate('ShowTrip'))
   }
 
   render() {

@@ -1,7 +1,7 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import NewTripReducer from './reducers/new_trip_reducer';
-import AllTripsReducer from './reducers/new_trip_reducer';
+import AllTripsReducer from './reducers/all_trips_reducer';
 import TripShowReducer from './reducers/trip_show_reducer';
 import { Root } from './router';
 

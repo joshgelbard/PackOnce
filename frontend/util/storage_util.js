@@ -15,11 +15,26 @@ export const saveTrip = async (trip) => {
   }
 }
 
-export const getTrip = async (tripId) => {
+export const loadTrip = async (tripId) => {
   try {
     const trip = await AsyncStorage.getItem(tripKey(tripId))
-    return trip
+    return JSON.parse(trip)
   } catch (error) {
     console.log('getTrip: error retrieving data: " ', error)
+  }
+}
+
+export const getAllTrips = async () => {
+  try {
+    const allKeys = await AsyncStorage.getAllKeys()
+    const allTrips = await AsyncStorage.multiGet(allKeys)
+    const trips = {}
+    allTrips.forEach( pair => {
+      const trip = JSON.parse(pair[1])
+      trips[trip.id] = trip
+    })
+    return trips
+  } catch (error) {
+    console.log('getAllTrips error: ', error)
   }
 }
