@@ -61,8 +61,8 @@ export const getSuggestedItems = activities => dispatch => {
   return APIUtil.getSuggestedItems(activities)
     .then( res => {
       if (res.status == 200) {
-        return res.json().then( res => {
-          const asObject = APIUtil.arrayToIdKeyedObject(res);
+        return res.json().then( data => {
+          const asObject = APIUtil.arrayToIdKeyedObject(data);
           dispatch(receiveSuggestedItems(asObject));
         })
       } else {
@@ -75,6 +75,18 @@ export const getSuggestedItems = activities => dispatch => {
 }
 
 export const sendTaggedTripItems = (items, activities, categories) => dispatch => {
+  console.log("in the sendTaggedTripItems action");
   return APIUtil.sendTaggedTripItems(items, activities, categories)
-    .then( res => dispatch(clearActiveTrip()))
+    .then( res => {
+      if (res.status == 200) {
+        return res.json().then( data => {
+          dispatch(clearActiveTrip());
+        })
+      } else {
+        console.log('sendTaggedTripItems: res status was not 200 ');
+      }
+    })
+    .catch( res => {
+      console.log('sendTaggedTripItems: catch ', res)
+    })
 };
