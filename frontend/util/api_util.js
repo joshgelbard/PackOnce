@@ -24,10 +24,15 @@ export const sendTaggedTripItems = (items, activities, categories) => {
   const activitiesString = activities.join("_");
   const itemsString = items.join("_");
   const categoriesString = categories.join("_");
+  console.log(itemsString, activitiesString, categoriesString);
   const url = `${SERVER_NAME}/taggings/`;
 
   return fetch(url, {
     method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
     body: { items: itemsString, activities: activitiesString,
       categories: categoriesString}
   });

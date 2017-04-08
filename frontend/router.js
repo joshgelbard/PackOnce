@@ -42,7 +42,7 @@ const RouteConfigs = {
 }
 
 const StackNavigatorConfig = {
-  initialRouteName: 'AddActivity'
+  initialRouteName: 'ShowTrip'
 }
 
 export const Root = StackNavigator(RouteConfigs, StackNavigatorConfig);

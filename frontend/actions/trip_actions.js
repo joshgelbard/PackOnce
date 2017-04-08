@@ -58,9 +58,8 @@ export const getSuggestedItems = activities => dispatch => {
   return APIUtil.getSuggestedItems(activities)
     .then( res => {
       if (res.status == 200) {
-        return res.json().then( res => {
-          const asObject = APIUtil.arrayToIdKeyedObject(res);
-          console.log(asObject);
+        return res.json().then( data => {
+          const asObject = APIUtil.arrayToIdKeyedObject(data);
           dispatch(receiveSuggestedItems(asObject));
         })
       } else {

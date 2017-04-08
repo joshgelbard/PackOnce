@@ -118,7 +118,9 @@ class TripShow extends React.Component {
     let categories = Object.keys(this.rows);
     let items = [];
     Object.keys(this.rows).forEach( key => {
-      items.push(this.rows[key].name);
+      this.rows[key].forEach(item => {
+        items.push(item.name);
+      });
     });
     this.props.sendTaggedTripItems(items, activities, categories);
   }
@@ -166,7 +168,7 @@ class TripShow extends React.Component {
           title='Archive Trip'
           onPress={() => {
             this.archiveTrip();
-            this.props.navigation.navigate('HomeView');
+            this.props.navigation.navigate('AddActivity');
           }}
         />
     </KeyboardAwareScrollView>
