@@ -27,7 +27,7 @@ class SuggestedItems extends React.Component {
       item.selected = true;
     }
     return <ListItem
-      title={item.item}
+      title={item.name}
       titleStyle={ [suggestedItemsStyles.unselected, item.selected && suggestedItemsStyles.selected ] }
       hideChevron
       onPress={ () => this.handlePress(item) }

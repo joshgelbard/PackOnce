@@ -54,12 +54,17 @@ export const loadTrip = tripId => dispatch => {
     .then(res => dispatch(receiveTrip(res)))
 }
 
+export const deleteAllTrips = () => dispatch => {
+  return StorageUtil.deleteAllTrips()
+}
+
 export const getSuggestedItems = activities => dispatch => {
   return APIUtil.getSuggestedItems(activities)
     .then( res => {
       if (res.status == 200) {
         return res.json().then( data => {
           const asObject = APIUtil.arrayToIdKeyedObject(data);
+          console.log(asObject);
           dispatch(receiveSuggestedItems(asObject));
         })
       } else {
