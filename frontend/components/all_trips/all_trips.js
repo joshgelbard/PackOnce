@@ -1,9 +1,10 @@
 import React from 'react';
 import { AppRegistry, ListView, View, Text, TextInput,
-  StyleSheet } from 'react-native';
+  StyleSheet, AsyncStorage } from 'react-native';
 import { CheckBox, Icon, Button, List, ListItem } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
+import { getTrip, createTrip } from '../../actions/trip_actions'
 
 const allTripStyles = StyleSheet.create({
   selected: {
@@ -21,7 +22,7 @@ class AllTrips extends React.Component {
   }
 
   handlePress(trip){
-    this.props.navigation.navigate('AddActivity');
+    getTrip(trip.id)
   }
 
   makeListItem(trip) {
@@ -39,9 +40,13 @@ class AllTrips extends React.Component {
       return this.makeListItem(this.props.trips[id]);
     });
     return (
-      <List>
-        {listItems}
-      </List>
+      <View>
+        <List>
+          {listItems}
+        </List>
+        <Button onPress={() => this.saveSomeTrip()} title="SaveSomeTrip"/>
+        <Button onPress={() => this.listAllData()} title="List all keys" />
+      </View>
     );
   }
 }

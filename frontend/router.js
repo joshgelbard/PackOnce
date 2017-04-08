@@ -6,12 +6,10 @@ import AddActivityScreen from './components/new_trip/add_activities';
 import SuggestedItemsScreen from './components/new_trip/suggested_items';
 import AllTrips from './components/all_trips/all_trips';
 
-export const Root = StackNavigator({
-
+const RouteConfigs = {
   AllTrips: {
     screen: AllTrips,
   },
-
   AddActivity: {
     screen: AddActivityScreen,
     navigationOptions: {
@@ -30,4 +28,10 @@ export const Root = StackNavigator({
       })
     }
   }
-});
+}
+
+const StackNavigatorConfig = {
+  initialRouteName: 'AddActivity'
+}
+
+export const Root = StackNavigator(RouteConfigs, StackNavigatorConfig);

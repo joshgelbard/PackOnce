@@ -2,13 +2,16 @@ import {
   RECEIVE_NEW_TRIP_ITEM,
   RECEIVE_NEW_TRIP_ACTIVITY,
   RECEIVE_SUGGESTED_ITEMS,
-  RECEIVE_ACTIVITY_TYPES
+  RECEIVE_ACTIVITY_TYPES,
+  RECEIVE_TRIP
 } from '../actions/trip_actions';
 
 const nullTrip = {id: undefined, name: undefined, activities: {}, items: {} };
 
 const NewTripReducer = (state = nullTrip, action) => {
   switch (action.type) {
+    case RECEIVE_TRIP:
+      console.log("received trip!", action.trip)
     case RECEIVE_ACTIVITY_TYPES:
       return Object.assign({}, state, { activities: action.activities })
     case RECEIVE_SUGGESTED_ITEMS:

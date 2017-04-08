@@ -23,8 +23,11 @@ class SuggestedItems extends React.Component {
   }
 
   makeListItem(item) {
+    if (item.selected === undefined) {
+      item.selected = true;
+    }
     return <ListItem
-      title={item.name}
+      title={item.item}
       titleStyle={ [suggestedItemsStyles.unselected, item.selected && suggestedItemsStyles.selected ] }
       hideChevron
       onPress={ () => this.handlePress(item) }
@@ -105,7 +108,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  createTrip: trip => dispatch(receiveTrip(trip)),
+  createTrip: trip => dispatch(createTrip(trip)),
   receiveNewTripItem: item => dispatch(receiveNewTripItem(item))
 })
 
