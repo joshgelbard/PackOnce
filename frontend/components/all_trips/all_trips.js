@@ -4,7 +4,7 @@ import { AppRegistry, ListView, View, Text, TextInput,
 import { CheckBox, Icon, Button, List, ListItem } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
-import { getAllTrips, loadTrip } from '../../actions/trip_actions'
+import { getAllTrips, loadTrip } from '../../actions/trip_actions';
 
 const allTripStyles = StyleSheet.create({
   selected: {
@@ -23,7 +23,7 @@ class AllTrips extends React.Component {
 
   handlePress(tripId){
     this.props.loadTrip(tripId)
-      .then( () => this.props.navigation.navigate('ShowTrip'))
+      .then( () => this.props.navigation.navigate('ShowTrip'));
   }
 
   componentWillMount(){

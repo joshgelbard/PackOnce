@@ -25,7 +25,7 @@ export const updateTripName = (trip) => ({
   trip
 });
 
-export const createTrip = trip => dispatch => {
+export const saveTrip = trip => dispatch => {
   return StorageUtil.saveTrip(trip)
     .then(res => dispatch(receiveTrip(res)));
 };

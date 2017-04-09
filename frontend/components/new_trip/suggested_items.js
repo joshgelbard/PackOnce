@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { ScrollView, View, StyleSheet } from 'react-native';
 import { Text, List, ListItem, Button, Icon } from 'react-native-elements';
-import { createTrip } from '../../actions/trip_actions';
+import { saveTrip } from '../../actions/trip_actions';
 import {
   receiveNewTripItem,
   getSuggestedItems
@@ -60,13 +60,13 @@ class SuggestedItemsScreen extends React.Component {
 
   handleSubmit() {
     const selectedActivities = this.selectedActivities();
-    const { activities, navigation, name, items, createTrip } = this.props;
+    const { activities, navigation, name, items, saveTrip } = this.props;
     const newItems = Object.assign({}, items);
     Object.keys(newItems).forEach( key => {
       newItems[key].checked = false;
     });
     const trip = { name: name, activities: selectedActivities, items: newItems }
-    this.props.createTrip(trip)
+    this.props.saveTrip(trip)
       .then( () => navigation.navigate('ShowTrip'))
       .catch( () => navigation.navigate('ShowTrip'));
   }
@@ -148,7 +148,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  createTrip: trip => dispatch(createTrip(trip)),
+  saveTrip: trip => dispatch(saveTrip(trip)),
   receiveNewTripItem: item => dispatch(receiveNewTripItem(item)),
   getSuggestedItems: selectedActivities => dispatch(getSuggestedItems(selectedActivities))
 });
