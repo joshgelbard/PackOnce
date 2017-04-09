@@ -4,21 +4,29 @@ import { AppRegistry, ListView, View, Text, TextInput,
 import { CheckBox, Icon, Button, List, ListItem } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
-import { getAllTrips, loadTrip } from '../../actions/trip_actions'
+import { getAllTrips, loadTrip } from '../../actions/trip_actions';
 
 const allTripStyles = StyleSheet.create({
-  selected: {
-    backgroundColor: 'blue'
+  container: {
+    flex: 1,
+    backgroundColor: "white"
   },
-  unselected: {
-    backgroundColor: 'white'
-  }
+  items: {
+    backgroundColor: '#3DA57F',
+  },
+  items1: {
+    backgroundColor: 'white',
+  },
+  items2: {
+    backgroundColor: 'steelblue',
+  },
 });
 
 
 class AllTrips extends React.Component {
   constructor(props){
     super(props);
+    this.switchColor = 0;
   }
 
   handlePress(tripId){
@@ -31,11 +39,22 @@ class AllTrips extends React.Component {
   }
 
   makeListItem(trip) {
+    let style;
+
+    if (this.switchColor === 0)
+      {style = allTripStyles.items;}
+    else if (this.switchColor === 2)
+      {style = allTripStyles.items2;}
+    else
+      {style = allTripStyles.items1;}
+
+    this.switchColor = (this.switchColor + 1) % 4;
+
     return (<ListItem
-      containerStyle={ [allTripStyles.unselected, trip.selected && allTripStyles.selected] }
+      containerStyle={style}
       title={trip.name}
       onPress={ () => this.handlePress(trip.id) }
-      underlayColor={ 'blue' }
+      underlayColor={ 'steelblue' }
       key={trip.id}
     />);
   }
@@ -45,7 +64,7 @@ class AllTrips extends React.Component {
       return this.makeListItem(this.props.trips[id]);
     });
     return (
-      <ScrollView>
+      <ScrollView style={allTripStyles.container}>
         <List>
           { listItems }
         </List>

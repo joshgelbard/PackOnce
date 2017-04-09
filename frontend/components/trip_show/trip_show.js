@@ -129,19 +129,14 @@ class TripShow extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>{this.props.name}</Text>
-        <CheckBox containerStyle={styles.row}
+        <Button
+          buttonStyle={styles.button}
+          icon={{name: 'add'}}
+          title='Add Category'
           onPress={() => {
             styles.textInput={display: "flex"};
             this.forceUpdate();
           }}
-          center
-          title='Add Category'
-          iconRight
-          iconType='material'
-          checkedIcon='clear'
-          uncheckedIcon='add'
-          checkedColor='red'
-          checked={false}
         />
         <TextInput
           value={this.state.itemName}
@@ -192,7 +187,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(TripShow);
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: "white",
   },
   row: {
     padding: 15,
@@ -228,7 +224,9 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 15,
+    marginTop: 10,
     marginBottom: 10,
-    backgroundColor: "green"
+    backgroundColor: "#3DA57F",
+    borderRadius: 50,
   }
 });
