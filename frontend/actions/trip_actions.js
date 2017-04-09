@@ -24,6 +24,23 @@ export const getAllTrips = () => dispatch => {
     .then(res => dispatch(receiveTrips(res)))
 }
 
+export const sendTaggedTripItems = (items, activities, categories) => dispatch => {
+
+  return APIUtil.sendTaggedTripItems(items, activities, categories)
+    .then( res => {
+      if (res.status == 200) {
+        return res.json().then( data => {
+          dispatch(clearActiveTrip());
+        })
+      } else {
+        console.log('sendTaggedTripItems: res status was not 200 ');
+      }
+    })
+    .catch( res => {
+      console.log('sendTaggedTripItems: catch ', res)
+    })
+};
+
 export const loadTrip = tripId => dispatch => {
   return StorageUtil.loadTrip(tripId)
     .then(res => dispatch(receiveTrip(res)))
