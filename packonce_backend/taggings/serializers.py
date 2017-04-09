@@ -2,9 +2,12 @@ from rest_framework import serializers
 from taggings.models import Tagging
 
 class TaggingSerializer(serializers.ModelSerializer):
+
+    name = serializers.CharField(source='item', read_only=True)
+
     class Meta:
         model = Tagging
-        fields = ('id', 'item', 'activity', 'count', 'category')
+        fields = ('id', 'name', 'activity', 'count', 'category')
 
     def create(self, validated_data):
         return Tagging.objects.create(**validated_data)

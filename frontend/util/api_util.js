@@ -19,16 +19,3 @@ export const arrayToIdKeyedObject = (array) => {
   });
   return obj;
 }
-
-export const sendTaggedTripItems = (items, activities, categories) => {
-  const activitiesString = activities.join("_");
-  const itemsString = items.join("_");
-  const categoriesString = categories.join("_");
-  const url = `${SERVER_NAME}/taggings/`;
-
-  return fetch(url, {
-    method: 'POST',
-    body: { items: itemsString, activities: activitiesString,
-      categories: categoriesString}
-  });
-};

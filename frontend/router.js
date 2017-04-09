@@ -2,12 +2,16 @@ import React from 'react';
 import { StackNavigator } from 'react-navigation';
 import { Button } from 'react-native-elements';
 
-import AddActivityScreen from './components/new_trip/add_activities';
+import AddActivitiesScreen from './components/new_trip/add_activities';
 import SuggestedItemsScreen from './components/new_trip/suggested_items';
 import AllTrips from './components/all_trips/all_trips';
 import TripShow from './components/trip_show/trip_show';
+import HomeScreen from './components/home_screen/home_screen';
 
 const RouteConfigs = {
+  HomeScreen: {
+    screen: HomeScreen
+  },
   AllTrips: {
     screen: AllTrips,
   },
@@ -22,7 +26,7 @@ const RouteConfigs = {
     }
   },
   AddActivity: {
-    screen: AddActivityScreen,
+    screen: AddActivitiesScreen,
     navigationOptions: {
       title: 'New Trip: Choose Activities',
       header: ({ navigate }) => ({
@@ -42,7 +46,7 @@ const RouteConfigs = {
 }
 
 const StackNavigatorConfig = {
-  initialRouteName: 'AddActivity'
+  initialRouteName: 'HomeScreen'
 }
 
 export const Root = StackNavigator(RouteConfigs, StackNavigatorConfig);
