@@ -1,11 +1,16 @@
 import {
-  RECEIVE_TRIPS
+  RECEIVE_TRIPS,
+  UPDATE_TRIP
 } from '../actions/trip_actions';
 
 const AllTripsReducer = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_TRIPS:
-      return Object.assign({}, state, action.trips)
+      return Object.assign({}, state, action.trips);
+    case UPDATE_TRIP:
+      console.log(state);
+      return state;
+      // return Object.assign({}, state, action.trip);
     default:
       return state;
   }

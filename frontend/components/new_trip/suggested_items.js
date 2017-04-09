@@ -1,12 +1,12 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { ScrollView, View, StyleSheet } from 'react-native'
-import { Text, List, ListItem, Button, Icon } from 'react-native-elements'
+import React from 'react';
+import { connect } from 'react-redux';
+import { ScrollView, View, StyleSheet } from 'react-native';
+import { Text, List, ListItem, Button, Icon } from 'react-native-elements';
+import { saveTrip } from '../../actions/trip_actions';
 import {
-  createTrip,
   receiveNewTripItem,
   getSuggestedItems
-} from '../../actions/new_trip_actions'
+} from '../../actions/new_trip_actions';
 
 const styles = StyleSheet.create({
   selected: {
@@ -39,36 +39,36 @@ const styles = StyleSheet.create({
   smallText: {
     fontSize: 16
   }
-})
+});
 
 class SuggestedItemsScreen extends React.Component {
 
   componentWillMount() {
-    this.props.getSuggestedItems(this.selectedActivities())
+    this.props.getSuggestedItems(this.selectedActivities());
   }
 
   selectedActivities() {
-    const { activities } = this.props
-    const selectedActivities = []
+    const { activities } = this.props;
+    const selectedActivities = [];
     Object.keys(activities).forEach( key => {
       if (activities[key].selected) {
-        selectedActivities.push(activities[key].name)
+        selectedActivities.push(activities[key].name);
       }
-    })
-    return selectedActivities
+    });
+    return selectedActivities;
   }
 
   handleSubmit() {
-    const selectedActivities = this.selectedActivities()
-    const { activities, navigation, name, items, createTrip } = this.props
-    const newItems = Object.assign({}, items)
+    const selectedActivities = this.selectedActivities();
+    const { activities, navigation, name, items, saveTrip } = this.props;
+    const newItems = Object.assign({}, items);
     Object.keys(newItems).forEach( key => {
-      newItems[key].checked = false
-    })
+      newItems[key].checked = false;
+    });
     const trip = { name: name, activities: selectedActivities, items: newItems }
-    createTrip(trip)
+    this.props.saveTrip(trip)
       .then( () => navigation.navigate('ShowTrip'))
-      .catch( () => navigation.navigate('ShowTrip'))
+      .catch( () => navigation.navigate('ShowTrip'));
   }
 
   prompt() {
@@ -81,43 +81,47 @@ class SuggestedItemsScreen extends React.Component {
           You can choose which ones to keep.
         </Text>
       </View>
-    )
+    );
   }
 
   makeListItem(item) {
     if (item.selected === undefined) {
       item.selected = true;
     }
-    return <ListItem
-      title={item.name}
+    if (item.item.length === 0 ){
+      item.item = 'unknown';
+    }
+
+    return (<ListItem
+      title={item.item}
       titleStyle={ [styles.unselected, item.selected && styles.selected ] }
       hideChevron
       onPress={ () => this.handlePress(item) }
       leftIcon={ item.selected ? {name: 'highlight-off'} : {} }
       key={item.id}
-    />
+    />);
   }
 
   continueButton() {
-    return <Button title={"Continue"} onPress={() => this.handleSubmit()} />
+    return (<Button title={"Continue"} onPress={() => this.handleSubmit()} />);
   }
 
   handlePress(item) {
-    const newItem = Object.assign({}, item, { selected: !item.selected })
-    this.props.receiveNewTripItem(newItem)
+    const newItem = Object.assign({}, item, { selected: !item.selected });
+    this.props.receiveNewTripItem(newItem);
   }
 
   suggestedItemsList() {
     const listItems = Object.keys(this.props.items).map( (key) => {
-      return this.makeListItem(this.props.items[key])
-    })
+      return this.makeListItem(this.props.items[key]);
+    });
     return (
       <ScrollView>
         <List>
           { listItems }
         </List>
       </ScrollView>
-    )
+    );
   }
 
   render() {
@@ -141,12 +145,12 @@ const mapStateToProps = (state) => ({
   name: state.NewTrip.name,
   items: state.NewTrip.items,
   activities: state.NewTrip.activities
-})
+});
 
 const mapDispatchToProps = (dispatch) => ({
-  createTrip: trip => dispatch(createTrip(trip)),
+  saveTrip: trip => dispatch(saveTrip(trip)),
   receiveNewTripItem: item => dispatch(receiveNewTripItem(item)),
   getSuggestedItems: selectedActivities => dispatch(getSuggestedItems(selectedActivities))
-})
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(SuggestedItemsScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(SuggestedItemsScreen);
