@@ -89,11 +89,10 @@ class SuggestedItemsScreen extends React.Component {
     if (item.selected === undefined) {
       item.selected = true;
     }
-    console.log('should be an item',item.category);
     if (item.item.length === 0 ){
       item.item = 'unknown';
     }
-    
+
     return <ListItem
       title={item.item}
       titleStyle={ [styles.unselected, item.selected && styles.selected ] }

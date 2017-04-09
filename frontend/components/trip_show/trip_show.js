@@ -44,7 +44,7 @@ class TripShow extends React.Component {
       }
       this.rows[this.props.items[key].category].push(this.props.items[key]);
     });
-
+    console.log('these are the rows:', this.rows);
     this.state = {
       dataSource: ds.cloneWithRowsAndSections(this.rows),
       itemName: "",
@@ -61,7 +61,7 @@ class TripShow extends React.Component {
   renderRow(rowData, sectionId) {
     return (
       <CheckBox containerStyle={styles.row}
-        title={rowData.name}
+        title={rowData.item}
         checked={rowData.checked}
         onPress={() => {
           rowData.checked = !rowData.checked;
