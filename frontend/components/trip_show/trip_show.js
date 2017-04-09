@@ -44,8 +44,9 @@ class TripShow extends React.Component {
       }
       this.rows[this.props.items[key].category].push(this.props.items[key]);
     });
-    console.log('these are the rows:', this.rows);
     this.state = {
+      tripName: 'Default Trip Name',
+      userChooseTitle: false,
       dataSource: ds.cloneWithRowsAndSections(this.rows),
       itemName: "",
       visible: false,
@@ -56,6 +57,7 @@ class TripShow extends React.Component {
     this.addHeader = this.addHeader.bind(this);
     this.renderSectionHeader = this.renderSectionHeader.bind(this);
     this.archiveTrip = this.archiveTrip.bind(this);
+    this.addTripName = this.addTripName.bind(this);
   }
 
   renderRow(rowData, sectionId) {
@@ -125,10 +127,42 @@ class TripShow extends React.Component {
     this.props.sendTaggedTripItems(items, activities, categories);
   }
 
+  tripNameRender(){
+    if (this.state.userChooseTitle) {
+      return(<TextInput
+        value={this.state.tripName}
+        style={styles.title}
+        placeholder= {this.state.tripName}
+        onChangeText={(tripName) => this.setState({tripName})}
+      />);
+    }
+    else {
+
+      return (<Button
+        buttonStyle={styles.title}
+        title={this.props.name}
+        onPress={() => {
+          this.addTripName();
+          // this.props.navigation.navigate('HomeScreen');
+        }}
+        />);
+
+    }
+  }
+
+  addTripName() {
+    this.setState({userChooseTitle: true});
+
+    // placeholder="Type here!"
+    // onChangeText={(itemName) => this.setState({itemName})}
+
+    console.log('it got here');
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>{this.props.name}</Text>
+        {this.tripNameRender()}
         <CheckBox containerStyle={styles.row}
           onPress={() => {
             styles.textInput={display: "flex"};
