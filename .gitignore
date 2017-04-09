@@ -55,3 +55,4 @@ fastlane/screenshots
 settings_local.py
 
 *.pyc
+*.sqlite3
