@@ -1,4 +1,5 @@
 import * as StorageUtil from '../util/storage_util'
+import * as APIUtil from '../util/api_util'
 
 export const RECEIVE_TRIP = "RECEIVE_TRIP"
 export const RECEIVE_TRIPS = "RECEIVE_TRIPS"
@@ -12,6 +13,10 @@ export const receiveTrip = trip => ({
 export const receiveTrips = trips => ({
   type: RECEIVE_TRIPS,
   trips
+})
+
+export const clearActiveTrip = () => ({
+  type: CLEAR_ACTIVE_TRIP
 })
 
 export const createTrip = trip => dispatch => {

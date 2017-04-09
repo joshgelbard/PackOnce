@@ -168,7 +168,7 @@ class TripShow extends React.Component {
           title='Archive Trip'
           onPress={() => {
             this.archiveTrip();
-            this.props.navigation.navigate('AddActivity');
+            this.props.navigation.navigate('HomeScreen');
           }}
         />
     </KeyboardAwareScrollView>
