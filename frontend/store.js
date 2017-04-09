@@ -19,7 +19,7 @@ const _preloadedState = {
       0: { id: 0, name: 'Preloaded Umbrella', checked: true, category: 'Utility' },
       1: { id: 1, name: 'Preloaded Tent', checked: false, category: 'Equipment' }
     },
-    activities: ['Preloaded Camping']
+    activities: ['PreloadedCamping']
   },
 
   NewTrip: {
@@ -29,7 +29,7 @@ const _preloadedState = {
       1: { id: 1, name: 'Camping', selected: false }
     },
     items: {
-
+      
     }
   }
 };

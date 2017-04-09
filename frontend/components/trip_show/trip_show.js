@@ -115,12 +115,11 @@ class TripShow extends React.Component {
 
   archiveTrip() {
     let activities = this.props.activities;
-    let categories = [];
+    let categories = Object.keys(this.rows);
     let items = [];
     Object.keys(this.rows).forEach( key => {
       this.rows[key].forEach(item => {
         items.push(item.name);
-        categories.push(key);
       });
     });
     this.props.sendTaggedTripItems(items, activities, categories);

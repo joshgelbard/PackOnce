@@ -19,6 +19,10 @@ const RouteConfigs = {
     screen: TripShow,
     navigationOptions: {
       header: {visible: false}
+      // title: 'Show Trip'
+      // header: ({ navigate }) => ({
+      //   right: <Button title={"Archive"} onPress={() => navigate('HomeView')}/>
+      // })
     }
   },
   AddActivity: {
