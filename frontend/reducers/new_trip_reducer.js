@@ -3,15 +3,15 @@ import {
   RECEIVE_NEW_TRIP_ACTIVITY,
   RECEIVE_SUGGESTED_ITEMS,
   RECEIVE_ACTIVITY_TYPES,
-  RECEIVE_TRIP
-} from '../actions/trip_actions';
+  CLEAR_NEW_TRIP
+} from '../actions/new_trip_actions';
 
-const nullTrip = {id: undefined, name: undefined, activities: {}, items: {} };
+const nullTrip = { name: 'New Trip', activities: {}, items: {} };
 
 const NewTripReducer = (state = nullTrip, action) => {
   switch (action.type) {
-    case RECEIVE_TRIP:
-      console.log("received trip!", action.trip)
+    case CLEAR_NEW_TRIP:
+      return nullTrip
     case RECEIVE_ACTIVITY_TYPES:
       return Object.assign({}, state, { activities: action.activities })
     case RECEIVE_SUGGESTED_ITEMS:

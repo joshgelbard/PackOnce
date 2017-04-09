@@ -18,7 +18,6 @@ class HomeScreen extends React.Component {
   }
 
   render() {
-
     const { navigation, deleteAllTrips } = this.props
     return (
       <View>

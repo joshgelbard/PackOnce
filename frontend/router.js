@@ -2,7 +2,7 @@ import React from 'react';
 import { StackNavigator } from 'react-navigation';
 import { Button } from 'react-native-elements';
 
-import AddActivityScreen from './components/new_trip/add_activities';
+import AddActivitiesScreen from './components/new_trip/add_activities';
 import SuggestedItemsScreen from './components/new_trip/suggested_items';
 import AllTrips from './components/all_trips/all_trips';
 import TripShow from './components/trip_show/trip_show';
@@ -26,7 +26,7 @@ const RouteConfigs = {
     }
   },
   AddActivity: {
-    screen: AddActivityScreen,
+    screen: AddActivitiesScreen,
     navigationOptions: {
       title: 'New Trip: Choose Activities',
       header: ({ navigate }) => ({

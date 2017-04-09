@@ -2,10 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { ScrollView, View, StyleSheet } from 'react-native'
 import { Text, List, ListItem, Button, Icon } from 'react-native-elements'
-import { NewTripStep, newTripStyles } from './new_trip'
-import { createTrip, receiveNewTripItem } from '../../actions/trip_actions'
+import {
+  createTrip,
+  receiveNewTripItem,
+  getSuggestedItems
+} from '../../actions/new_trip_actions'
 
-const suggestedItemsStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   selected: {
     textDecorationLine: 'none',
     fontStyle: 'normal'
@@ -14,12 +17,71 @@ const suggestedItemsStyles = StyleSheet.create({
     textDecorationLine: 'line-through',
     fontStyle: 'italic',
     color: 'gray'
+  },
+  container: {
+    flex: 1
+  },
+  headerContainer: {
+    height: 70,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  footerContainer: {
+    height: 70,
+    justifyContent: 'center'
+  },
+  bodyContainer: {
+    flex: 1
+  },
+  bigText: {
+    fontSize: 24
+  },
+  smallText: {
+    fontSize: 16
   }
 })
 
-class SuggestedItems extends React.Component {
-  constructor(props) {
-    super(props)
+class SuggestedItemsScreen extends React.Component {
+
+  componentWillMount() {
+    this.props.getSuggestedItems(this.selectedActivities())
+  }
+
+  selectedActivities() {
+    const { activities } = this.props
+    const selectedActivities = []
+    Object.keys(activities).forEach( key => {
+      if (activities[key].selected) {
+        selectedActivities.push(activities[key].name)
+      }
+    })
+    return selectedActivities
+  }
+
+  handleSubmit() {
+    const selectedActivities = this.selectedActivities()
+    const { activities, navigation, name, items, createTrip } = this.props
+    const newItems = Object.assign({}, items)
+    Object.keys(newItems).forEach( key => {
+      newItems[key].checked = false
+    })
+    const trip = { name: name, activities: selectedActivities, items: newItems }
+    createTrip(trip)
+      .then( () => navigation.navigate('ShowTrip'))
+      .catch( () => navigation.navigate('ShowTrip'))
+  }
+
+  prompt() {
+    return (
+      <View>
+        <Text style={styles.bigText}>
+          Here are some suggested items.
+        </Text>
+        <Text style={styles.smallText}>
+          You can choose which ones to keep.
+        </Text>
+      </View>
+    )
   }
 
   makeListItem(item) {
@@ -28,7 +90,7 @@ class SuggestedItems extends React.Component {
     }
     return <ListItem
       title={item.name}
-      titleStyle={ [suggestedItemsStyles.unselected, item.selected && suggestedItemsStyles.selected ] }
+      titleStyle={ [styles.unselected, item.selected && styles.selected ] }
       hideChevron
       onPress={ () => this.handlePress(item) }
       leftIcon={ item.selected ? {name: 'highlight-off'} : {} }
@@ -36,12 +98,16 @@ class SuggestedItems extends React.Component {
     />
   }
 
+  continueButton() {
+    return <Button title={"Continue"} onPress={() => this.handleSubmit()} />
+  }
+
   handlePress(item) {
     const newItem = Object.assign({}, item, { selected: !item.selected })
     this.props.receiveNewTripItem(newItem)
   }
 
-  render() {
+  suggestedItemsList() {
     const listItems = Object.keys(this.props.items).map( (key) => {
       return this.makeListItem(this.props.items[key])
     })
@@ -53,51 +119,21 @@ class SuggestedItems extends React.Component {
       </ScrollView>
     )
   }
-}
-class SuggestedItemsScreen extends React.Component {
-  handleSubmit() {
-    const selectedActivities = []
-    Object.keys(this.props.activities).forEach( key => {
-      if (this.props.activities[key].selected) {
-        selectedActivities.push(this.props.activities[key].name)
-      }
-    })
-    const items = Object.assign({}, this.props.items)
-    Object.keys(items).forEach( key => {
-      items[key].checked = false
-    })
-    const trip = { name: this.props.name, activities: selectedActivities, items }
-    this.props.createTrip(trip)
-      .then( () => this.props.navigation.navigate('ShowTrip'))
-      .catch( () => this.props.navigation.navigate('ShowTrip'))
-  }
 
   render() {
-    const { items, activities, createTrip, receiveNewTripItem } = this.props
-
-    const continueButton = (
-      <Button title={"Continue"} onPress={() => this.handleSubmit()} />
-    )
-
-    const prompt = (
-      <View>
-        <Text style={newTripStyles.bigText}>
-          Here are some suggested items
-        </Text>
-        <Text style={newTripStyles.smallText}>
-          You can choose which ones to keep.
-        </Text>
+    return (
+      <View style={styles.container}>
+        <View style={styles.headerContainer}>
+          { this.prompt() }
+        </View>
+        <View style={styles.bodyContainer}>
+          { this.suggestedItemsList() }
+        </View>
+        <View style={styles.footerContainer}>
+          { this.continueButton() }
+        </View>
       </View>
-    )
-
-    const suggestedItems = <SuggestedItems
-      items={items}
-      activities={activities}
-      createTrip={createTrip}
-      receiveNewTripItem={receiveNewTripItem}
-    />
-
-    return <NewTripStep header={prompt} body={suggestedItems} footer={continueButton} />
+    );
   }
 }
 
@@ -109,7 +145,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   createTrip: trip => dispatch(createTrip(trip)),
-  receiveNewTripItem: item => dispatch(receiveNewTripItem(item))
+  receiveNewTripItem: item => dispatch(receiveNewTripItem(item)),
+  getSuggestedItems: selectedActivities => dispatch(getSuggestedItems(selectedActivities))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SuggestedItemsScreen)

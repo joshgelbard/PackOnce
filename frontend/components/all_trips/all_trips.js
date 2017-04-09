@@ -47,7 +47,7 @@ class AllTrips extends React.Component {
     return (
       <ScrollView>
         <List>
-          {listItems}
+          { listItems }
         </List>
       </ScrollView>
     );
