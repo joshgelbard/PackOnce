@@ -1,40 +1,58 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { ScrollView, StyleSheet } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import { Text, List, ListItem, Button } from 'react-native-elements'
-import { NewTripStep, newTripStyles } from './new_trip'
-import { getSuggestedItems, receiveNewTripActivity } from '../../actions/trip_actions'
+import {
+  receiveNewTripActivity
+} from '../../actions/new_trip_actions'
 
-const addActivitiesStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   selected: {
     backgroundColor: 'blue'
   },
   unselected: {
     backgroundColor: 'white'
+  },
+  container: {
+    flex: 1
+  },
+  headerContainer: {
+    height: 70,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  footerContainer: {
+    height: 70,
+    justifyContent: 'center'
+  },
+  bodyContainer: {
+    flex: 1
+  },
+  bigText: {
+    fontSize: 24
+  },
+  smallText: {
+    fontSize: 16
   }
 })
 
-class AddActivities extends React.Component {
-  constructor(props) {
-    super(props)
+class AddActivitiesScreen extends React.Component {
+
+  handleSubmit() {
+    this.props.navigation.navigate('SuggestedItems')
   }
 
   makeListItem(activity) {
     return <ListItem
-      containerStyle={ [addActivitiesStyles.unselected, activity.selected && addActivitiesStyles.selected] }
+      containerStyle={ [styles.unselected, activity.selected && styles.selected] }
       title={activity.name}
-      onPress={ () => this.handlePress(activity) }
+      onPress={ () => this.handleActivityPress(activity) }
       underlayColor={ 'blue' }
       key={activity.id}
     />
   }
 
-  handlePress(activity) {
-    const newActivity = Object.assign({}, activity, { selected: !activity.selected })
-    this.props.receiveNewTripActivity(newActivity)
-  }
-
-  render() {
+  activitiesList() {
     const listItems = Object.keys(this.props.activities).map( (id) => {
       return this.makeListItem(this.props.activities[id])
     })
@@ -46,38 +64,36 @@ class AddActivities extends React.Component {
       </ScrollView>
     )
   }
-}
 
-class AddActivityScreen extends React.Component {
+  handleActivityPress(activity) {
+    const newActivity = Object.assign({}, activity, { selected: !activity.selected })
+    this.props.receiveNewTripActivity(newActivity)
+  }
 
-  handleSubmit() {
-    const selectedActivities = []
-    Object.keys(this.props.activities).forEach( key => {
-      if (this.props.activities[key].selected) {
-        selectedActivities.push(this.props.activities[key].name)
-      }
-    })
-    this.props.getSuggestedItems(selectedActivities)
-      .then( () => this.props.navigation.navigate('SuggestedItems'))
-      .catch( () => this.props.navigation.navigate('SuggestedItems'))
+  continueButton() {
+    return <Button title={"Continue"} onPress={() => this.handleSubmit()} />
+  }
+
+  prompt() {
+    return <Text style={styles.bigText}>
+      What kind of trip?
+    </Text>
   }
 
   render() {
-    const {activities, receiveNewTripActivity } = this.props
-
-    const continueButton = (
-      <Button title={"Continue"} onPress={() => this.handleSubmit()} />
+    return (
+      <View style={styles.container}>
+        <View style={styles.headerContainer}>
+          { this.prompt() }
+        </View>
+        <View style={styles.bodyContainer}>
+          { this.activitiesList() }
+        </View>
+        <View style={styles.footerContainer}>
+          { this.continueButton() }
+        </View>
+      </View>
     )
-
-    const prompt = (
-      <Text style={newTripStyles.bigText}>
-        What kind of trip?
-      </Text>
-    )
-
-    const addActivities = <AddActivities activities={activities} receiveNewTripActivity={receiveNewTripActivity}/>
-
-    return <NewTripStep header={prompt} body={addActivities} footer={continueButton} />
   }
 }
 
@@ -89,7 +105,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   receiveNewTripActivity: activity => dispatch(receiveNewTripActivity(activity)),
-  getSuggestedItems: selectedActivities => dispatch(getSuggestedItems(selectedActivities))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddActivityScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(AddActivitiesScreen)

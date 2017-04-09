@@ -1,0 +1,142 @@
+[
+  {
+    "model": "taggings.tagging",
+    "id": 1,
+    "fields": {
+      "item": "Map",
+      "activity": "Backpacking",
+      "count": 10,
+      "category": "Gear"
+    }
+  },
+  {
+    "model": "taggings.tagging",
+    "id": 2,
+    "fields": {
+      "item": "Sleeping Bag",
+      "activity": "Backpacking",
+      "count": 10,
+      "category": "Gear"
+    }
+  },
+  {
+    "model": "taggings.tagging",
+    "id": 2,
+    "fields": {
+      "item": "Tent",
+      "activity": "Backpacking",
+      "count": 10,
+      "category": "Gear"
+    }
+  },
+  {
+    "model": "taggings.tagging",
+    "id": 2,
+    "fields": {
+      "item": "Flashlight",
+      "activity": "Backpacking",
+      "count": 10,
+      "category": "Gear"
+    }
+  },
+  {
+    "model": "taggings.tagging",
+    "id": 1,
+    "fields": {
+      "item": "Sunscreen",
+      "activity": "Backpacking",
+      "count": 10,
+      "category": "Personal Items"
+    }
+  },
+  {
+    "model": "taggings.tagging",
+    "id": 2,
+    "fields": {
+      "item": "Insect Repellant",
+      "activity": "Backpacking",
+      "count": 10,
+      "category": "Personal Items"
+    }
+  },
+  {
+    "model": "taggings.tagging",
+    "id": 2,
+    "fields": {
+      "item": "First-aid Kit",
+      "activity": "Backpacking",
+      "count": 10,
+      "category": "Personal Items"
+    }
+  },
+  {
+    "model": "taggings.tagging",
+    "id": 2,
+    "fields": {
+      "item": "Toothbrush/Toiletries",
+      "activity": "Backpacking",
+      "count": 10,
+      "category": "Personal Items"
+    }
+  },
+  {
+    "model": "taggings.tagging",
+    "id": 2,
+    "fields": {
+      "item": "Soap",
+      "activity": "Backpacking",
+      "count": 10,
+      "category": "Personal Items"
+    }
+  },
+  {
+    "model": "taggings.tagging",
+    "id": 1,
+    "fields": {
+      "item": "Daytime Clothes",
+      "activity": "Backpacking",
+      "count": 10,
+      "category": "Clothes"
+    }
+  },
+  {
+    "model": "taggings.tagging",
+    "id": 2,
+    "fields": {
+      "item": "Sleepwear",
+      "activity": "Backpacking",
+      "count": 10,
+      "category": "Clothes"
+    }
+  },
+  {
+    "model": "taggings.tagging",
+    "id": 2,
+    "fields": {
+      "item": "Swimsuits",
+      "activity": "Backpacking",
+      "count": 10,
+      "category": "Clothes"
+    }
+  },
+  {
+    "model": "taggings.tagging",
+    "id": 2,
+    "fields": {
+      "item": "Hiking/Walking Shoes",
+      "activity": "Backpacking",
+      "count": 10,
+      "category": "Clothes"
+    }
+  },
+  {
+    "model": "taggings.tagging",
+    "id": 2,
+    "fields": {
+      "item": "Hats",
+      "activity": "Backpacking",
+      "count": 10,
+      "category": "Clothes"
+    }
+  }
+]
