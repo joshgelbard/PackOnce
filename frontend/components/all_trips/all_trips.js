@@ -27,7 +27,8 @@ class AllTrips extends React.Component {
   }
 
   componentWillMount(){
-    this.props.getAllTrips()
+    console.log('mounting');
+    this.props.getAllTrips();
   }
 
   makeListItem(trip) {

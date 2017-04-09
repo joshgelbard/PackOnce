@@ -4,7 +4,8 @@ import { AppRegistry, ListView, View, Text, TextInput,
 import { CheckBox, Icon, Button } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
-import { sendTaggedTripItems } from '../../actions/trip_actions';
+import { sendTaggedTripItems,
+        updateTripName } from '../../actions/trip_actions';
 
 // const backendData = {
 //   0: {id: 0, name: 'Toothbrush', checked: true, category: 'Toiletries'},
@@ -45,7 +46,7 @@ class TripShow extends React.Component {
       this.rows[this.props.items[key].category].push(this.props.items[key]);
     });
     this.state = {
-      tripName: 'Default Trip Name',
+      tripName: this.props.name,
       userChooseTitle: false,
       dataSource: ds.cloneWithRowsAndSections(this.rows),
       itemName: "",
@@ -57,7 +58,7 @@ class TripShow extends React.Component {
     this.addHeader = this.addHeader.bind(this);
     this.renderSectionHeader = this.renderSectionHeader.bind(this);
     this.archiveTrip = this.archiveTrip.bind(this);
-    this.addTripName = this.addTripName.bind(this);
+    // this.addTripName = this.addTripName.bind(this);
   }
 
   renderRow(rowData, sectionId) {
@@ -132,8 +133,14 @@ class TripShow extends React.Component {
       return(<TextInput
         value={this.state.tripName}
         style={styles.title}
-        placeholder= {this.state.tripName}
+        placeholder= {this.props.name}
         onChangeText={(tripName) => this.setState({tripName})}
+        onSubmitEditing={() => {
+          styles.textInput={display: "none"};
+          this.setState({userChooseTitle: false});
+          const trip = {id: this.props.id, name: this.state.tripName};
+          this.props.updateTripName(trip);
+        }}
       />);
     }
     else {
@@ -142,21 +149,12 @@ class TripShow extends React.Component {
         buttonStyle={styles.title}
         title={this.props.name}
         onPress={() => {
-          this.addTripName();
+          this.setState({userChooseTitle: true});
           // this.props.navigation.navigate('HomeScreen');
         }}
         />);
 
     }
-  }
-
-  addTripName() {
-    this.setState({userChooseTitle: true});
-
-    // placeholder="Type here!"
-    // onChangeText={(itemName) => this.setState({itemName})}
-
-    console.log('it got here');
   }
 
   render() {
@@ -213,16 +211,17 @@ class TripShow extends React.Component {
 
 const mapStateToProps = (state) => ({
   name: state.TripShow.name,
+  id: state.TripShow.id,
   items: state.TripShow.items,
   activities: state.TripShow.activities
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  sendTaggedTripItems: (items, activities, categories) => dispatch(sendTaggedTripItems(items, activities, categories))
+  sendTaggedTripItems: (items, activities, categories) => dispatch(sendTaggedTripItems(items, activities, categories)),
+  updateTripName: (trip) => dispatch(updateTripName(trip))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TripShow);
-
 
 const styles = StyleSheet.create({
   container: {

@@ -8,7 +8,9 @@ const AllTripsReducer = (state = {}, action) => {
     case RECEIVE_TRIPS:
       return Object.assign({}, state, action.trips);
     case UPDATE_TRIP:
-      return Object.assign({}, state, action.trip);
+      console.log(state);
+      return state;
+      // return Object.assign({}, state, action.trip);
     default:
       return state;
   }
