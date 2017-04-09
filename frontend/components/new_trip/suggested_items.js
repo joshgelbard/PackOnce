@@ -2,11 +2,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { ScrollView, View, StyleSheet } from 'react-native'
 import { Text, List, ListItem, Button, Icon } from 'react-native-elements'
+import { createTrip } from '../../actions/trip_actions'
 import {
-  createTrip,
   receiveNewTripItem,
   getSuggestedItems
 } from '../../actions/new_trip_actions'
+// import { createTrip } from '../..actions/trip_actions';
 
 const styles = StyleSheet.create({
   selected: {
@@ -66,7 +67,7 @@ class SuggestedItemsScreen extends React.Component {
       newItems[key].checked = false
     })
     const trip = { name: name, activities: selectedActivities, items: newItems }
-    createTrip(trip)
+    this.props.createTrip(trip)
       .then( () => navigation.navigate('ShowTrip'))
       .catch( () => navigation.navigate('ShowTrip'))
   }
@@ -88,8 +89,13 @@ class SuggestedItemsScreen extends React.Component {
     if (item.selected === undefined) {
       item.selected = true;
     }
+    console.log('should be an item',item.category);
+    if (item.item.length === 0 ){
+      item.item = 'unknown';
+    }
+    
     return <ListItem
-      title={item.name}
+      title={item.item}
       titleStyle={ [styles.unselected, item.selected && styles.selected ] }
       hideChevron
       onPress={ () => this.handlePress(item) }
