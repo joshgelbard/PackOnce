@@ -1,4 +1,5 @@
 import * as StorageUtil from '../util/storage_util'
+import * as APIUtil from '../util/api_util'
 
 export const RECEIVE_TRIP = "RECEIVE_TRIP"
 export const RECEIVE_TRIPS = "RECEIVE_TRIPS"
@@ -30,7 +31,7 @@ export const sendTaggedTripItems = (items, activities, categories) => dispatch =
     .then( res => {
       if (res.status == 200) {
         return res.json().then( data => {
-          dispatch(clearActiveTrip());
+          // dispatch(clearActiveTrip());
         })
       } else {
         console.log('sendTaggedTripItems: res status was not 200 ');

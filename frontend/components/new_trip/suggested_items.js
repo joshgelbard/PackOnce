@@ -89,7 +89,7 @@ class SuggestedItemsScreen extends React.Component {
       item.selected = true;
     }
     return <ListItem
-      title={item.name}
+      title={item.item}
       titleStyle={ [styles.unselected, item.selected && styles.selected ] }
       hideChevron
       onPress={ () => this.handlePress(item) }
