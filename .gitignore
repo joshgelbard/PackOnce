@@ -56,3 +56,5 @@ settings_local.py
 
 *.pyc
 *.sqlite3
+
+/env
