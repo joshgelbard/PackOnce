@@ -51,7 +51,6 @@ class AllTrips extends React.Component {
   }
 
   componentWillMount(){
-    console.log('mounting');
     this.props.getAllTrips();
   }
 

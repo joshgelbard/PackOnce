@@ -8,7 +8,6 @@ const isOurKey = (key) => key.slice(0, STORAGE_PREFIX.length) === STORAGE_PREFIX
 const getOurKeys = async () => {
   try {
     const allKeys = await AsyncStorage.getAllKeys()
-    console.log(allKeys);
     return allKeys.filter( key => isOurKey(key) )
   } catch (error) {
     console.log('error in getOurKeys:', error);
@@ -54,7 +53,6 @@ export const getAllTrips = async () => {
 export const deleteAllTrips = async () => {
   try {
     const ourKeys = await getOurKeys()
-    console.log(ourKeys);
     // change if we ever store anything besides trips
     await AsyncStorage.multiRemove(ourKeys)
     return

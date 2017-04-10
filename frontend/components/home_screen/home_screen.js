@@ -28,7 +28,7 @@ class HomeScreen extends React.Component {
           onPress={ () => navigation.navigate('AddActivities')} />
         <Button
           buttonStyle={[styles.button, {backgroundColor: "#3DA57F"}]}
-          title="Show Trip"
+          title="Current Trip"
           icon={{name: 'slideshow'}}
           onPress={ () => navigation.navigate('ShowTrip')} />
         <Button
