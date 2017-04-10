@@ -17,7 +17,7 @@ const _preloadedState = {
     name: 'New Trip',
     activities: {
       0: { id: 0, name: 'Gadgets', selected: false },
-      1: { id: 1, name: 'Travling with Children', selected: false }
+      1: { id: 1, name: 'Traveling with Children', selected: false }
     },
     items: {}
   }

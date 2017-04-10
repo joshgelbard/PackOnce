@@ -33,10 +33,9 @@ export const clearNewTrip = () => ({
 export const getSuggestedItems = activities => dispatch => {
   return APIUtil.getSuggestedItems(activities)
     .then( res => {
-      if (res.status == 200) {
+      if (res.status === 200) {
         return res.json().then( data => {
           const asObject = APIUtil.arrayToIdKeyedObject(data);
-          console.log(asObject);
           dispatch(receiveSuggestedItems(asObject));
         })
       } else {

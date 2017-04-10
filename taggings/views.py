@@ -40,8 +40,9 @@ class TaggingTrip(APIView):
         hyp_activities = request.GET.get('activities').split('_')
         activities = []
         for activity in hyp_activities:
-            activities.push(activity.split('-').join(' '))
-            
+            act = ' '.join(activity.split('-'))
+            activities.append(act)
+
         limit = int(request.GET.get('limit'))
         tags = Tagging.objects.filter(activity__in=activities).order_by('-count')[:limit]
         serializer = TaggingSerializer(tags, many=True)
