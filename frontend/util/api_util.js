@@ -2,16 +2,16 @@
 const SERVER_NAME = 'https://fierce-citadel-80546.herokuapp.com/';
 
 export const getSuggestedItems = (activities, limit = 10) => {
-  const activitiesString = activities.join("_")
-  const url = `${SERVER_NAME}/tag/?activities=${activitiesString}&limit=${limit}`
+  const activitiesString = activities.join("_");
+  const url = `${SERVER_NAME}/tag/?activities=${activitiesString}&limit=${limit}`;
   return fetch(url, {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     }
-  })
-}
+  });
+};
 
 export const arrayToIdKeyedObject = (array) => {
   const obj = {};
@@ -19,7 +19,7 @@ export const arrayToIdKeyedObject = (array) => {
     obj[item.id] = item;
   });
   return obj;
-}
+};
 
 
 export const sendTaggedTripItems = (items, activities, categories) => {

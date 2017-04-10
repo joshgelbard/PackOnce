@@ -3,140 +3,390 @@
      "model": "taggings.tagging",
      "id": 1,
      "fields": {
-       "item": "Tent",
-       "activity": "Camping",
+       "item": "Soap",
+       "activity": "Essentials",
        "count": 10,
-       "category": "Campsite Gear"
+       "category": "Personal"
      }
    },
    {
      "model": "taggings.tagging",
      "id": 2,
      "fields": {
-       "item": "Sleeping Bag",
-       "activity": "Camping",
+       "item": "Toothbrush/Toothpaste",
+       "activity": "Essentials",
        "count": 10,
-       "category": "Campsite Gear"
+       "category": "Personal"
      }
    },
    {
      "model": "taggings.tagging",
      "id": 3,
      "fields": {
-       "item": "Lantern",
-       "activity": "Camping",
+       "item": "Deoderant",
+       "activity": "Essentials",
        "count": 10,
-       "category": "Campsite Gear"
+       "category": "Personal"
      }
    },
    {
      "model": "taggings.tagging",
      "id": 4,
      "fields": {
-       "item": "Flashlight",
-       "activity": "Camping",
+       "item": "Underwear",
+       "activity": "Essentials",
        "count": 10,
-       "category": "Campsite Gear"
+       "category": "Clothes"
      }
    },
    {
      "model": "taggings.tagging",
      "id": 5,
      "fields": {
-       "item": "Sunscreen",
-       "activity": "Camping",
+       "item": "Jacket",
+       "activity": "Essentials",
        "count": 10,
-       "category": "Personal Items"
+       "category": "Clothes"
      }
    },
    {
      "model": "taggings.tagging",
      "id": 6,
      "fields": {
-       "item": "Insect Repellant",
-       "activity": "Camping",
+       "item": "Books/Magizines",
+       "activity": "On a Plane",
        "count": 10,
-       "category": "Personal Items"
+       "category": "Entertainment"
      }
    },
    {
      "model": "taggings.tagging",
      "id": 7,
      "fields": {
-       "item": "First-aid Kit",
-       "activity": "Camping",
+       "item": "Earplugs",
+       "activity": "On a Plane",
        "count": 10,
-       "category": "Personal Items"
+       "category": "Comfort"
      }
    },
    {
      "model": "taggings.tagging",
      "id": 8,
      "fields": {
-       "item": "Toothbrush/Toiletries",
-       "activity": "Camping",
+       "item": "Luggage",
+       "activity": "Essentials",
        "count": 10,
-       "category": "Personal Items"
+       "category": "Personal"
      }
    },
    {
      "model": "taggings.tagging",
      "id": 9,
      "fields": {
-       "item": "Soap",
-       "activity": "Camping",
+       "item": "Eye Mask",
+       "activity": "On a Plane",
        "count": 10,
-       "category": "Personal Items"
+       "category": "Comfort"
      }
    },
    {
      "model": "taggings.tagging",
      "id": 11,
      "fields": {
-       "item": "Daytime Clothes",
-       "activity": "Camping",
+       "item": "Pillow/Blanket",
+       "activity": "On a Plane",
        "count": 10,
-       "category": "Clothes"
+       "category": "Comfort"
      }
    },
    {
      "model": "taggings.tagging",
      "id": 12,
      "fields": {
-       "item": "Sleepwear",
-       "activity": "Camping",
+       "item": "Camera",
+       "activity": "Gadgets",
        "count": 10,
-       "category": "Clothes"
+       "category": "Technology"
      }
    },
    {
      "model": "taggings.tagging",
      "id": 13,
      "fields": {
-       "item": "Swimsuits",
-       "activity": "Camping",
+       "item": "Cell Phone",
+       "activity": "Gadgets",
        "count": 10,
-       "category": "Clothes"
+       "category": "Technology"
      }
    },
    {
      "model": "taggings.tagging",
      "id": 14,
      "fields": {
-       "item": "Hiking/Walking Shoes",
-       "activity": "Camping",
+       "item": "Chargers",
+       "activity": "Gadgets",
        "count": 10,
-       "category": "Clothes"
+       "category": "Technology"
      }
    },
    {
      "model": "taggings.tagging",
      "id": 15,
      "fields": {
-       "item": "Hats",
-       "activity": "Camping",
+       "item": "Laptop",
+       "activity": "Gadgets",
+       "count": 10,
+       "category": "Technology"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 16,
+     "fields": {
+       "item": "Directions",
+       "activity": "In the Car",
+       "count": 10,
+       "category": "Traveling"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 17,
+     "fields": {
+       "item": "Keys",
+       "activity": "In the Car",
+       "count": 10,
+       "category": "Traveling"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 18,
+     "fields": {
+       "item": "Pillow/Blanket",
+       "activity": "In the Car",
+       "count": 10,
+       "category": "Comfort"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 19,
+     "fields": {
+       "item": "Tent",
+       "activity": "Beach/Camping and Outdoors",
+       "count": 10,
+       "category": "Resting"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 19,
+     "fields": {
+       "item": "Sunscreen",
+       "activity": "Beach/Camping and Outdoors",
+       "count": 10,
+       "category": "Safety"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 20,
+     "fields": {
+       "item": "Flashlight",
+       "activity": "Beach/Camping and Outdoors",
+       "count": 10,
+       "category": "Safety"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 21,
+     "fields": {
+       "item": "Binoculars",
+       "activity": "Beach/Camping and Outdoors",
+       "count": 22,
+       "category": "Sightseeing"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 23,
+     "fields": {
+       "item": "Umbrella",
+       "activity": "Beach/Camping and Outdoors",
+       "count": 10,
+       "category": "Safety"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 24,
+     "fields": {
+       "item": "Swimwear",
+       "activity": "Beach/Camping and Outdoors",
        "count": 10,
        "category": "Clothes"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 25,
+     "fields": {
+       "item": "Towels",
+       "activity": "Beach/Camping and Outdoors",
+       "count": 10,
+       "category": "Clothes"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 26,
+     "fields": {
+       "item": "Cooler",
+       "activity": "Beack/Camping and Outdoors",
+       "count": 10,
+       "category": "Miscellaneous"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 27,
+     "fields": {
+       "item": "Video Games",
+       "activity": "Traveling with Children",
+       "count": 10,
+       "category": "Entertainment"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 28,
+     "fields": {
+       "item": "Coloring Books",
+       "activity": "Traveling with Children",
+       "count": 10,
+       "category": "Entertainment"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 29,
+     "fields": {
+       "item": "Travel Games",
+       "activity": "Traveling with Children",
+       "count": 10,
+       "category": "Entertainment"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 30,
+     "fields": {
+       "item": "Car Seat",
+       "activity": "Traveling with Children",
+       "count": 10,
+       "category": "Saftey"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 31,
+     "fields": {
+       "item": "First-aid Kit",
+       "activity": "Beach/Camping and Outdoors",
+       "count": 10,
+       "category": "Saftey"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 32,
+     "fields": {
+       "item": "Children's Medication",
+       "activity": "Traveling",
+       "count": 10,
+       "category": "Saftey"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 33,
+     "fields": {
+       "item": "License/Passport",
+       "activity": "Important Documents",
+       "count": 10,
+       "category": "Identification"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 34,
+     "fields": {
+       "item": "Hotel Reservations",
+       "activity": "Important Documents",
+       "count": 10,
+       "category": "Housing"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 35,
+     "fields": {
+       "item": "Credits Cards/Cash",
+       "activity": "Important Documents",
+       "count": 10,
+       "category": "Expenses"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 36,
+     "fields": {
+       "item": "Medical Vaccination Records",
+       "activity": "Important Documents",
+       "count": 10,
+       "category": "Saftey"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 37,
+     "fields": {
+       "item": "Dress",
+       "activity": "Formal Events",
+       "count": 10,
+       "category": "Special Event"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 38,
+     "fields": {
+       "item": "Hiking Boots",
+       "activity": "Beach/Camping and Outdoors",
+       "count": 10,
+       "category": "Hiking"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 39,
+     "fields": {
+       "item": "Dress Shoes",
+       "activity": "Formal Events",
+       "count": 10,
+       "category": "Special Event"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 40,
+     "fields": {
+       "item": "Tie",
+       "activity": "Formal Events",
+       "count": 10,
+       "category": "Special Event"
      }
    }
  ]
