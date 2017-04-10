@@ -6,6 +6,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { connect } from 'react-redux';
 import { sendTaggedTripItems,
         updateTripName } from '../../actions/trip_actions';
+import { saveTrip } from '../../actions/trip_actions';
 
 // const backendData = {
 //   0: {id: 0, name: 'Toothbrush', checked: true, category: 'Toiletries'},
@@ -124,8 +125,14 @@ class TripShow extends React.Component {
       this.rows[key].forEach(item => {
         items.push(item.name);
       });
+
     });
     this.props.sendTaggedTripItems(items, activities, categories);
+    const trip = { id: this.props.id,
+       name: this.state.tripName,
+       activities: this.props.activities,
+       items: this.props.items };
+    this.props.saveTrip(trip);
   }
 
   tripNameRender(){
@@ -136,21 +143,24 @@ class TripShow extends React.Component {
         placeholder= {this.props.name}
         onChangeText={(tripName) => this.setState({tripName})}
         onSubmitEditing={() => {
-          styles.textInput={display: "none"};
-          this.setState({userChooseTitle: false});
-          const trip = {id: this.props.id, name: this.state.tripName};
-          this.props.updateTripName(trip);
-        }}
+            styles.textInput={display: "none"};
+            this.setState({userChooseTitle: false});
+            const trip = { id: this.props.id,
+               name: this.state.tripName,
+               activities: this.props.activities,
+               items: this.props.items };
+            this.props.saveTrip(trip);
+          }
+        }
       />);
     }
     else {
 
       return (<Button
-        buttonStyle={styles.title}
+        buttonStyle={styles.button}
         title={this.props.name}
         onPress={() => {
           this.setState({userChooseTitle: true});
-          // this.props.navigation.navigate('HomeScreen');
         }}
         />);
 
@@ -200,7 +210,7 @@ class TripShow extends React.Component {
           title='Archive Trip'
           onPress={() => {
             this.archiveTrip();
-            this.props.navigation.navigate('HomeScreen');
+            this.props.navigation.navigate('AllTrips');
           }}
         />
     </KeyboardAwareScrollView>
@@ -218,7 +228,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   sendTaggedTripItems: (items, activities, categories) => dispatch(sendTaggedTripItems(items, activities, categories)),
-  updateTripName: (trip) => dispatch(updateTripName(trip))
+  updateTripName: (trip) => dispatch(updateTripName(trip)),
+  saveTrip: (trip) => dispatch(saveTrip(trip))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TripShow);

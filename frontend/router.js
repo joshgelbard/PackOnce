@@ -13,16 +13,13 @@ const RouteConfigs = {
     screen: HomeScreen
   },
   AllTrips: {
-    screen: AllTrips,
+    screen: AllTrips
+
   },
   ShowTrip: {
     screen: TripShow,
     navigationOptions: {
       header: {visible: false}
-      // title: 'Show Trip'
-      // header: ({ navigate }) => ({
-      //   right: <Button title={"Archive"} onPress={() => navigate('HomeView')}/>
-      // })
     }
   },
   AddActivity: {
