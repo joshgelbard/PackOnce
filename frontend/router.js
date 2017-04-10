@@ -1,7 +1,7 @@
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
 import { Button } from 'react-native-elements';
-import { Text } from 'react-native';
+import { View, Text, Image, TouchableHighlight } from 'react-native';
 
 import AddActivitiesScreen from './components/new_trip/add_activities';
 import SuggestedItemsScreen from './components/new_trip/suggested_items';
@@ -30,14 +30,18 @@ const RouteConfigs = {
 
 const displayTitle = (navigate, state) => {
   return(
-  <Button
-    buttonStyle={styles.logo}
-    color="white"
-    title={"PackOnce"} onPress={() => {
-    if(state.routeName !== "HomeScreen"){
-      navigate('HomeScreen');
-    }
-  }}/>);
+    <TouchableHighlight
+      style={styles.touch}
+      onPress={() => {
+      if(state.routeName !== "HomeScreen"){
+        navigate('HomeScreen');
+      }}}>
+        <Image
+          style={styles.logo}
+          source={require('./logo.png')}
+           />
+    </TouchableHighlight>
+  );
 };
 
 const displayRightButton = (navigate, state) => {
@@ -64,8 +68,15 @@ const StackNavigatorConfig = {
 export const Root = StackNavigator(RouteConfigs, StackNavigatorConfig);
 
 const styles = {
+  touch: {
+    flex:1,
+  },
   logo: {
     backgroundColor: 'transparent',
+    height: 40,
+    width: 100,
+    marginLeft: 10,
+    marginTop: 5,
   },
   header: {
     backgroundColor: "#2A2B2A"
