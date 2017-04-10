@@ -11,15 +11,24 @@ import {
 const styles = StyleSheet.create({
   selected: {
     textDecorationLine: 'none',
-    fontStyle: 'normal'
+    fontStyle: 'normal',
+    justifyContent: 'center',
+    textAlign: 'center',
+    fontSize: 16,
+    color: 'black',
+    paddingLeft: 0
   },
   unselected: {
     textDecorationLine: 'line-through',
     fontStyle: 'italic',
-    color: 'gray'
+    textAlign: 'center',
+    color: 'gray',
+    fontSize: 16,
+    paddingLeft: 50
   },
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: "white"
   },
   headerContainer: {
     height: 70,
@@ -38,7 +47,17 @@ const styles = StyleSheet.create({
   },
   smallText: {
     fontSize: 16
-  }
+  },
+  button: {
+    padding: 15,
+    marginTop: 10,
+    marginBottom: 10,
+    backgroundColor: "#3DA57F",
+    borderRadius: 50,
+  },
+  // items: {
+  //
+  // }
 });
 
 class SuggestedItemsScreen extends React.Component {
@@ -61,11 +80,13 @@ class SuggestedItemsScreen extends React.Component {
   handleSubmit() {
     const selectedActivities = this.selectedActivities();
     const { activities, navigation, name, items, saveTrip } = this.props;
-    const newItems = Object.assign({}, items);
-    Object.keys(newItems).forEach( key => {
-      newItems[key].checked = false;
+    const newItems = {}
+    Object.keys(items).forEach( key => {
+      if (items[key].selected) {
+        newItems[key] = Object.assign({}, items[key], {checked: false});
+      }
     });
-    const trip = { name: name, activities: selectedActivities, items: newItems }
+    const trip = { name: name, activities: selectedActivities, items: newItems };
     this.props.saveTrip(trip)
       .then( () => navigation.navigate('ShowTrip'))
       .catch( () => navigation.navigate('ShowTrip'));
@@ -97,13 +118,16 @@ class SuggestedItemsScreen extends React.Component {
       titleStyle={ [styles.unselected, item.selected && styles.selected ] }
       hideChevron
       onPress={ () => this.handlePress(item) }
-      leftIcon={ item.selected ? {name: 'highlight-off'} : {} }
+      leftIcon={ item.selected ? {name: 'highlight-off', style:{paddingLeft: 15,justifyContent: "center"}} : {} }
       key={item.id}
     />);
   }
 
   continueButton() {
-    return (<Button title={"Continue"} onPress={() => this.handleSubmit()} />);
+    return (<Button
+      buttonStyle={styles.button}
+      title={"Continue"}
+      onPress={() => this.handleSubmit()} />);
   }
 
   handlePress(item) {

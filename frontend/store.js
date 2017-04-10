@@ -13,24 +13,13 @@ const RootReducer = combineReducers({
 
 const _preloadedState = {
 
-  TripShow: {
-    name: 'Preloaded TripShow',
-    items: {
-      0: { id: 0, name: 'Preloaded Umbrella', checked: true, category: 'Utility' },
-      1: { id: 1, name: 'Preloaded Tent', checked: false, category: 'Equipment' }
-    },
-    activities: ['PreloadedCamping']
-  },
-
   NewTrip: {
     name: 'New Trip',
     activities: {
-      0: { id: 0, name: 'Skiing', selected: false },
-      1: { id: 1, name: 'Camping', selected: false }
+      0: { id: 0, name: 'Gadgets', selected: false },
+      1: { id: 1, name: 'Travling with Children', selected: false }
     },
-    items: {
-
-    }
+    items: {}
   }
 };
 

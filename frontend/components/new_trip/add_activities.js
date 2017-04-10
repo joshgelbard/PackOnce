@@ -8,13 +8,14 @@ import {
 
 const styles = StyleSheet.create({
   selected: {
-    backgroundColor: 'blue'
+    backgroundColor: '#64a8e0'
   },
   unselected: {
     backgroundColor: 'white'
   },
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: "white"
   },
   headerContainer: {
     height: 70,
@@ -33,6 +34,13 @@ const styles = StyleSheet.create({
   },
   smallText: {
     fontSize: 16
+  },
+  button: {
+    padding: 15,
+    marginTop: 10,
+    marginBottom: 10,
+    backgroundColor: "#3DA57F",
+    borderRadius: 50,
   }
 })
 
@@ -46,8 +54,9 @@ class AddActivitiesScreen extends React.Component {
     return <ListItem
       containerStyle={ [styles.unselected, activity.selected && styles.selected] }
       title={activity.name}
+      titleStyle={{fontWeight: "bold"}}
       onPress={ () => this.handleActivityPress(activity) }
-      underlayColor={ 'blue' }
+      underlayColor={ '#64a8e0' }
       key={activity.id}
     />
   }
@@ -71,7 +80,9 @@ class AddActivitiesScreen extends React.Component {
   }
 
   continueButton() {
-    return <Button title={"Continue"} onPress={() => this.handleSubmit()} />
+    return <Button buttonStyle={styles.button}
+      title={"Continue"}
+      onPress={() => this.handleSubmit()} />
   }
 
   prompt() {

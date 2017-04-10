@@ -141,7 +141,11 @@ class TripShow extends React.Component {
     else {
 
       return (<Button
-        buttonStyle={styles.button}
+        textStyle={styles.title}
+        color="gray"
+        backgroundColor="white"
+        fontSize={40}
+        fontWeight= "bold"
         title={this.props.name}
         onPress={() => {
           this.setState({userChooseTitle: true});
@@ -156,7 +160,7 @@ class TripShow extends React.Component {
       <View style={styles.container}>
 
         {this.tripNameRender()}
-  
+
         <Button
           buttonStyle={styles.button}
           icon={{name: 'add'}}
@@ -237,10 +241,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   title: {
-    fontSize: 40,
-    padding: 15,
-    marginBottom: 5,
-    fontWeight: 'bold',
     textAlign: 'center',
   },
   textInput: {
