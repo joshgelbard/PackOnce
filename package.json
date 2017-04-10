@@ -1,31 +1,30 @@
 {
-  "name": "PackOnce",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
-  },
-  "dependencies": {
-    "react": "16.0.0-alpha.6",
-    "react-native": "0.43.0",
-    "react-native-elements": "^0.10.3",
-    "react-native-keyboard-aware-scroll-view": "^0.2.8",
-    "react-native-vector-icons": "^4.0.1",
-    "react-navigation": "git+https://github.com/react-community/react-navigation.git#7edd9a7",
-    "react-redux": "^5.0.3",
-    "redux": "^3.6.0",
-    "redux-thunk": "^2.2.0",
-    "uuid": "^3.0.1",
-    "with-query": "^1.0.2"
+  "name": "startbootstrap-new-age",
+  "title": "New Age",
+  "version": "3.3.7",
+  "homepage": "http://startbootstrap.com/template-overviews/new-age",
+  "author": "Start Bootstrap",
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE"
   },
   "devDependencies": {
-    "babel-jest": "19.0.0",
-    "babel-preset-react-native": "1.9.1",
-    "jest": "19.0.2",
-    "react-test-renderer": "16.0.0-alpha.6"
+    "bootstrap": "^3.3.7",
+    "browser-sync": "^2.13.0",
+    "font-awesome": "^4.6.3",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^2.0.10",
+    "gulp-header": "^1.8.7",
+    "gulp-less": "^3.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.5.4",
+    "jquery": "^1.11.3"
   },
-  "jest": {
-    "preset": "react-native"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BlackrockDigital/startbootstrap-new-age.git"
+  },
+  "dependencies": {
+    "simple-line-icons": "^2.3.2"
   }
 }
