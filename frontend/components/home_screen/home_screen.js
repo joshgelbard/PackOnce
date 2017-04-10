@@ -33,19 +33,14 @@ class HomeScreen extends React.Component {
           onPress={ () => navigation.navigate('ShowTrip')} />
         <Button
           buttonStyle={[styles.button, {backgroundColor: "#7865BE"}]}
-          title="AllTrips"
+          title="All Trips"
           icon={{name: 'card-travel'}}
           onPress={ () => navigation.navigate('AllTrips')} />
         <Button
           buttonStyle={[styles.button, {backgroundColor: "#B21064"}]}
-          title="Delete all trips"
+          title="Delete All Trips"
           icon={{name: 'delete-forever'}}
           onPress={ () => deleteAllTrips() } />
-        <Button
-          buttonStyle={[styles.button, {backgroundColor: "#C0C63D"}]}
-          title="Create test trip"
-          onPress={ () => this.createTestTrip() }
-        />
       </Image>
     );
   }

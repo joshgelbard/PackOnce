@@ -32,7 +32,7 @@ const displayTitle = (navigate, state) => {
   return(
   <Button
     buttonStyle={styles.logo}
-    color="black"
+    color="white"
     title={"PackOnce"} onPress={() => {
     if(state.routeName !== "HomeScreen"){
       navigate('HomeScreen');
@@ -42,7 +42,7 @@ const displayTitle = (navigate, state) => {
 
 const displayRightButton = (navigate, state) => {
   if(state.routeName === "SuggestedItems"){
-    return(<Button title={"Skip"} onPress={() => navigate('TripShow', {skippedTo: true})}/>);
+    return(<Button title={"Skip"} onPress={() => navigate('ShowTrip', {skippedTo: true})}/>);
   }
   else if(state.routeName === "AddActivities") {
     return(<Button title={"Skip"} onPress={() => navigate('SuggestedItems', {skippedTo: true})}/>);
@@ -55,7 +55,8 @@ const StackNavigatorConfig = {
   navigationOptions: {
     header: ({ navigate, state }) => ({
       title: displayTitle(navigate, state),
-      right: displayRightButton(navigate, state)
+      right: displayRightButton(navigate, state),
+      style: styles.header
     })
   }
 };
@@ -66,4 +67,7 @@ const styles = {
   logo: {
     backgroundColor: 'transparent',
   },
+  header: {
+    backgroundColor: "#2A2B2A"
+  }
 };
