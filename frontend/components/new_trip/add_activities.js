@@ -76,7 +76,7 @@ class AddActivitiesScreen extends React.Component {
 
   prompt() {
     return <Text style={styles.bigText}>
-      What kind of trip?
+      What kind of items would you like to bring?
     </Text>
   }
 

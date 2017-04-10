@@ -6,22 +6,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { connect } from 'react-redux';
 import { sendTaggedTripItems } from '../../actions/trip_actions';
 
-// const backendData = {
-//   0: {id: 0, name: 'Toothbrush', checked: true, category: 'Toiletries'},
-//   1: {id: 1, name: 'Shampoo', checked: true, category: 'Toiletries'},
-//   3: {id: 2, name: 'Shaving Cream', checked: true, category: 'Toiletries'},
-//   4: {id: 3, name: 'Tablet', checked: true, category: 'Electronics'},
-//   5: {id: 4, name: 'Cell Phone', checked: true, category: 'Electronics'},
-// };
-//
-// var rows = {};
-// Object.keys(backendData).forEach( key => {
-//   if (!rows[backendData[key].category]) {
-//     rows[backendData[key].category] = [];
-//   }
-//   rows[backendData[key].category].push(backendData[key]);
-// });
-
 // Row and section comparison functions
 const rowHasChanged = (r1, r2) => {
   return(r1.checked === r2.checked);
@@ -163,7 +147,7 @@ class TripShow extends React.Component {
           title='Archive Trip'
           onPress={() => {
             this.archiveTrip();
-            this.props.navigation.navigate('AddActivity');
+            this.props.navigation.navigate('AddActivities');
           }}
         />
     </KeyboardAwareScrollView>

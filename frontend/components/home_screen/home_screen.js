@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 import { connect } from 'react-redux'
 import { Button } from 'react-native-elements';
 import { deleteAllTrips, createTrip } from '../../actions/trip_actions'
@@ -20,12 +20,12 @@ class HomeScreen extends React.Component {
   render() {
     const { navigation, deleteAllTrips } = this.props
     return (
-      <View style={styles.container}>
+      <Image source={require('./background.jpg')}  style={styles.backgroundImage}>
         <Button
           buttonStyle={[styles.button, {backgroundColor: "#FB9483"}]}
           title="New Trip"
           icon={{name: 'add'}}
-          onPress={ () => navigation.navigate('AddActivity')} />
+          onPress={ () => navigation.navigate('AddActivities')} />
         <Button
           buttonStyle={[styles.button, {backgroundColor: "#3DA57F"}]}
           title="Show Trip"
@@ -46,8 +46,8 @@ class HomeScreen extends React.Component {
           title="Create test trip"
           onPress={ () => this.createTestTrip() }
         />
-      </View>
-    )
+      </Image>
+    );
   }
 }
 
@@ -61,11 +61,12 @@ export default connect(null, mapDispatchToProps)(HomeScreen)
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white"
+    // backgroundColor: "white"
   },
-  row: {
-    padding: 15,
-    marginBottom: 5,
+  backgroundImage: {
+    flex: 1,
+    width: "100%",
+    resizeMode: 'stretch', // or 'stretch'
   },
   header: {
     display: "flex",
@@ -98,7 +99,6 @@ const styles = StyleSheet.create({
   button: {
     padding: 15,
     marginTop: 10,
-    // backgroundColor: "green",
     borderRadius: 50,
   }
 });
