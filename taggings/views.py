@@ -19,7 +19,7 @@ class TaggingIndex(APIView):
 
         for (item, category) in zip(items, categories):
             for activity in activities:
-                activity = activity.split('-').join(' ')
+                activity = ' '.join(activity.split('-'))
                 data = {"item": item, "activity": activity, "category":category}
                 tag = Tagging.objects.filter(item=item, activity=activity)
                 if tag:
