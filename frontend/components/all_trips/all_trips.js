@@ -7,18 +7,42 @@ import { connect } from 'react-redux';
 import { getAllTrips, loadTrip } from '../../actions/trip_actions';
 
 const allTripStyles = StyleSheet.create({
-  selected: {
-    backgroundColor: 'blue'
+  container: {
+    flex: 1,
+    backgroundColor: "white",
   },
-  unselected: {
-    backgroundColor: 'white'
-  }
+  title: {
+    fontSize: 40,
+    padding: 15,
+    // marginBottom: 5,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  items: {
+    backgroundColor: '#43c696',
+  },
+  items1: {
+    backgroundColor: 'white',
+  },
+  items2: {
+    backgroundColor: '#64a8e0',
+  },
+  itemColor: {
+    color: 'white',
+  },
+  itemColor1: {
+    color: 'black',
+  },
+  itemColor2: {
+    color: 'white',
+  },
 });
 
 
 class AllTrips extends React.Component {
   constructor(props){
     super(props);
+    this.switchColor = 0;
   }
 
   handlePress(tripId){
@@ -32,11 +56,27 @@ class AllTrips extends React.Component {
   }
 
   makeListItem(trip) {
+    let style;
+    let itemColor;
+
+    if (this.switchColor === 0)
+      {style = allTripStyles.items;
+      itemColor = allTripStyles.itemColor;}
+    else if (this.switchColor === 2)
+      {style = allTripStyles.items2;
+      itemColor = allTripStyles.itemColor2;}
+    else
+      {style = allTripStyles.items1;
+      itemColor = allTripStyles.itemColor1;}
+
+    this.switchColor = (this.switchColor + 1) % 4;
+
     return (<ListItem
-      containerStyle={ [allTripStyles.unselected, trip.selected && allTripStyles.selected] }
+      titleStyle={itemColor}
+      containerStyle={style}
       title={trip.name}
       onPress={ () => this.handlePress(trip.id) }
-      underlayColor={ 'blue' }
+      underlayColor={ '#FFB405' }
       key={trip.id}
     />);
   }
@@ -46,7 +86,8 @@ class AllTrips extends React.Component {
       return this.makeListItem(this.props.trips[id]);
     });
     return (
-      <ScrollView>
+      <ScrollView style={allTripStyles.container}>
+        <Text style={allTripStyles.title}>All Trips</Text>
         <List>
           { listItems }
         </List>

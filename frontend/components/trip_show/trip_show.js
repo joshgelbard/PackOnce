@@ -8,22 +8,6 @@ import { sendTaggedTripItems,
         updateTripName } from '../../actions/trip_actions';
 import { saveTrip } from '../../actions/trip_actions';
 
-// const backendData = {
-//   0: {id: 0, name: 'Toothbrush', checked: true, category: 'Toiletries'},
-//   1: {id: 1, name: 'Shampoo', checked: true, category: 'Toiletries'},
-//   3: {id: 2, name: 'Shaving Cream', checked: true, category: 'Toiletries'},
-//   4: {id: 3, name: 'Tablet', checked: true, category: 'Electronics'},
-//   5: {id: 4, name: 'Cell Phone', checked: true, category: 'Electronics'},
-// };
-//
-// var rows = {};
-// Object.keys(backendData).forEach( key => {
-//   if (!rows[backendData[key].category]) {
-//     rows[backendData[key].category] = [];
-//   }
-//   rows[backendData[key].category].push(backendData[key]);
-// });
-
 // Row and section comparison functions
 const rowHasChanged = (r1, r2) => {
   return(r1.checked === r2.checked);
@@ -170,20 +154,17 @@ class TripShow extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+
         {this.tripNameRender()}
-        <CheckBox containerStyle={styles.row}
+  
+        <Button
+          buttonStyle={styles.button}
+          icon={{name: 'add'}}
+          title='Add Category'
           onPress={() => {
             styles.textInput={display: "flex"};
             this.forceUpdate();
           }}
-          center
-          title='Add Category'
-          iconRight
-          iconType='material'
-          checkedIcon='clear'
-          uncheckedIcon='add'
-          checkedColor='red'
-          checked={false}
         />
         <TextInput
           value={this.state.itemName}
@@ -236,7 +217,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(TripShow);
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: "white",
   },
   row: {
     padding: 15,
@@ -272,7 +254,9 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 15,
+    marginTop: 10,
     marginBottom: 10,
-    backgroundColor: "green"
+    backgroundColor: "#3DA57F",
+    borderRadius: 50,
   }
 });
