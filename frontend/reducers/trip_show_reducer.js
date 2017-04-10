@@ -13,7 +13,7 @@ const TripShowReducer = (state = nullTrip, action) => {
     case CLEAR_ACTIVE_TRIP:
       return Object.assign({}, state, nullTrip );
     case UPDATE_TRIP:
-      const trip = state;
+      const trip = Object.assign({}, state);
       trip.name = action.trip.name;
       return Object.assign({}, state, trip);
     default:

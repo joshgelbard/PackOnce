@@ -29,7 +29,7 @@ const _preloadedState = {
       1: { id: 1, name: 'Camping', selected: false }
     },
     items: {
-      
+
     }
   }
 };
