@@ -1,5 +1,5 @@
-const SERVER_NAME = 'http://10.0.2.2:8000';
-// const SERVER_NAME = 'https://fierce-citadel-80546.herokuapp.com/';
+// const SERVER_NAME = 'http://10.0.2.2:8000';
+const SERVER_NAME = 'https://fierce-citadel-80546.herokuapp.com/';
 
 export const getSuggestedItems = (activities, limit = 10) => {
 
