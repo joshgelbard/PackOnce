@@ -138,10 +138,8 @@
        "count": 10,
        "category": "Clothes"
      }
-   }
- ]
+   },
 
- [
    {
      "model": "taggings.tagging",
      "id": 16,
@@ -202,10 +200,8 @@
        "count": 10,
        "category": "Personal Items"
      }
-   }
- ]
-
- [
+   },
+  
     {
       "model": "taggings.tagging",
       "id":22,
