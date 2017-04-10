@@ -14,7 +14,8 @@ const RouteConfigs = {
     screen: HomeScreen
   },
   AllTrips: {
-    screen: AllTrips,
+    screen: AllTrips
+
   },
   ShowTrip: {
     screen: TripShow,

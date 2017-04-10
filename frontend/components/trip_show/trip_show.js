@@ -4,7 +4,9 @@ import { AppRegistry, ListView, View, Text, TextInput,
 import { CheckBox, Icon, Button } from 'react-native-elements';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
-import { sendTaggedTripItems } from '../../actions/trip_actions';
+import { sendTaggedTripItems,
+        updateTripName } from '../../actions/trip_actions';
+import { saveTrip } from '../../actions/trip_actions';
 
 // Row and section comparison functions
 const rowHasChanged = (r1, r2) => {
@@ -28,8 +30,9 @@ class TripShow extends React.Component {
       }
       this.rows[this.props.items[key].category].push(this.props.items[key]);
     });
-
     this.state = {
+      tripName: this.props.name,
+      userChooseTitle: false,
       dataSource: ds.cloneWithRowsAndSections(this.rows),
       itemName: "",
       visible: false,
@@ -40,12 +43,13 @@ class TripShow extends React.Component {
     this.addHeader = this.addHeader.bind(this);
     this.renderSectionHeader = this.renderSectionHeader.bind(this);
     this.archiveTrip = this.archiveTrip.bind(this);
+    // this.addTripName = this.addTripName.bind(this);
   }
 
   renderRow(rowData, sectionId) {
     return (
       <CheckBox containerStyle={styles.row}
-        title={rowData.name}
+        title={rowData.item}
         checked={rowData.checked}
         onPress={() => {
           rowData.checked = !rowData.checked;
@@ -105,14 +109,54 @@ class TripShow extends React.Component {
       this.rows[key].forEach(item => {
         items.push(item.name);
       });
+
     });
     this.props.sendTaggedTripItems(items, activities, categories);
+    const trip = { id: this.props.id,
+       name: this.state.tripName,
+       activities: this.props.activities,
+       items: this.props.items };
+    this.props.saveTrip(trip);
+  }
+
+  tripNameRender(){
+    if (this.state.userChooseTitle) {
+      return(<TextInput
+        value={this.state.tripName}
+        style={styles.title}
+        placeholder= {this.props.name}
+        onChangeText={(tripName) => this.setState({tripName})}
+        onSubmitEditing={() => {
+            styles.textInput={display: "none"};
+            this.setState({userChooseTitle: false});
+            const trip = { id: this.props.id,
+               name: this.state.tripName,
+               activities: this.props.activities,
+               items: this.props.items };
+            this.props.saveTrip(trip);
+          }
+        }
+      />);
+    }
+    else {
+
+      return (<Button
+        buttonStyle={styles.button}
+        title={this.props.name}
+        onPress={() => {
+          this.setState({userChooseTitle: true});
+        }}
+        />);
+
+    }
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>{this.props.name}</Text>
+
+        {this.tripNameRender()}
+  
         <Button
           buttonStyle={styles.button}
           icon={{name: 'add'}}
@@ -147,7 +191,7 @@ class TripShow extends React.Component {
           title='Archive Trip'
           onPress={() => {
             this.archiveTrip();
-            this.props.navigation.navigate('AddActivities');
+            this.props.navigation.navigate('AllTrips');
           }}
         />
     </KeyboardAwareScrollView>
@@ -158,16 +202,18 @@ class TripShow extends React.Component {
 
 const mapStateToProps = (state) => ({
   name: state.TripShow.name,
+  id: state.TripShow.id,
   items: state.TripShow.items,
   activities: state.TripShow.activities
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  sendTaggedTripItems: (items, activities, categories) => dispatch(sendTaggedTripItems(items, activities, categories))
+  sendTaggedTripItems: (items, activities, categories) => dispatch(sendTaggedTripItems(items, activities, categories)),
+  updateTripName: (trip) => dispatch(updateTripName(trip)),
+  saveTrip: (trip) => dispatch(saveTrip(trip))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TripShow);
-
 
 const styles = StyleSheet.create({
   container: {

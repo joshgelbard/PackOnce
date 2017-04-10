@@ -47,11 +47,12 @@ class AllTrips extends React.Component {
 
   handlePress(tripId){
     this.props.loadTrip(tripId)
-      .then( () => this.props.navigation.navigate('ShowTrip'))
+      .then( () => this.props.navigation.navigate('ShowTrip'));
   }
 
   componentWillMount(){
-    this.props.getAllTrips()
+    console.log('mounting');
+    this.props.getAllTrips();
   }
 
   makeListItem(trip) {

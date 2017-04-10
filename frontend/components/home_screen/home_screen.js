@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { connect } from 'react-redux'
 import { Button } from 'react-native-elements';
-import { deleteAllTrips, createTrip } from '../../actions/trip_actions'
+import { deleteAllTrips, saveTrip } from '../../actions/trip_actions'
 
 class HomeScreen extends React.Component {
 
@@ -14,7 +14,7 @@ class HomeScreen extends React.Component {
         0: { id: 0, name: 'ItemName', category: 'Category', checked: false }
       }
     }
-    this.props.createTrip(trip)
+    this.props.saveTrip(trip)
   }
 
   render() {
@@ -53,7 +53,7 @@ class HomeScreen extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   deleteAllTrips: () => dispatch(deleteAllTrips()),
-  createTrip: trip => dispatch(createTrip(trip))
+  saveTrip: trip => dispatch(saveTrip(trip))
 })
 
 export default connect(null, mapDispatchToProps)(HomeScreen)
