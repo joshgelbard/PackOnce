@@ -166,7 +166,7 @@
        "item": "Pillow/Blanket",
        "activity": "In the Car",
        "count": 10,
-       "category": "Comfort"
+       "category": "Traveling"
      }
    },
    {
@@ -181,7 +181,7 @@
    },
    {
      "model": "taggings.tagging",
-     "id": 19,
+     "id": 45,
      "fields": {
        "item": "Sunscreen",
        "activity": "Beach/Camping and Outdoors",
@@ -206,7 +206,7 @@
        "item": "Binoculars",
        "activity": "Beach/Camping and Outdoors",
        "count": 22,
-       "category": "Sightseeing"
+       "category": "Miscellaneous"
      }
    },
    {
@@ -226,7 +226,7 @@
        "item": "Swimwear",
        "activity": "Beach/Camping and Outdoors",
        "count": 10,
-       "category": "Clothes"
+       "category": "Miscellaneous"
      }
    },
    {
@@ -236,7 +236,7 @@
        "item": "Towels",
        "activity": "Beach/Camping and Outdoors",
        "count": 10,
-       "category": "Clothes"
+       "category": "Miscellaneous"
      }
    },
    {
@@ -304,7 +304,7 @@
      "id": 32,
      "fields": {
        "item": "Children's Medication",
-       "activity": "Traveling",
+       "activity": "Traveling With Children",
        "count": 10,
        "category": "Saftey"
      }
@@ -388,5 +388,85 @@
        "count": 10,
        "category": "Special Event"
      }
-   }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 41,
+     "fields": {
+       "item": "Socks/Shoes",
+       "activity": "Essentials",
+       "count": 10,
+       "category": "Clothes"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 42,
+     "fields": {
+       "item": "Card Games",
+       "activity": "On a Plane",
+       "count": 10,
+       "category": "Entertainment"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 43,
+     "fields": {
+       "item": "Music Player",
+       "activity": "On a Plane",
+       "count": 10,
+       "category": "Entertainment"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 44,
+     "fields": {
+       "item": "Snacks",
+       "activity": "In the Car",
+       "count": 10,
+       "category": "Traveling"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 46,
+     "fields": {
+       "item": "Sleeping Bag",
+       "activity": "Beach/Camping and Outdoors",
+       "count": 10,
+       "category": "Resting"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 47,
+     "fields": {
+       "item": "Pajamas",
+       "activity": "Beach/Camping and Outdoors",
+       "count": 10,
+       "category": "Resting"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 48,
+     "fields": {
+       "item": "First-aid Kit",
+       "activity": "Traveling with Children",
+       "count": 10,
+       "category": "Saftey"
+     }
+   },
+   {
+     "model": "taggings.tagging",
+     "id": 49,
+     "fields": {
+       "item": "Slacks/Pants",
+       "activity": "Formal Events",
+       "count": 10,
+       "category": "Special Event"
+     }
+   },
  ]
