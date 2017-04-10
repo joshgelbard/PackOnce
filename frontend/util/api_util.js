@@ -2,8 +2,15 @@
 const SERVER_NAME = 'https://fierce-citadel-80546.herokuapp.com/';
 
 export const getSuggestedItems = (activities, limit = 10) => {
-  const activitiesString = activities.join("_");
+
+  let hype = activities.map((activity) => {
+    return activity.split(' ').join('-');
+  });
+
+  const activitiesString = hype.join("_");
+  console.log("-------",activitiesString);
   const url = `${SERVER_NAME}/tag/?activities=${activitiesString}&limit=${limit}`;
+
   return fetch(url, {
     method: 'GET',
     headers: {
@@ -23,11 +30,13 @@ export const arrayToIdKeyedObject = (array) => {
 
 
 export const sendTaggedTripItems = (items, activities, categories) => {
-  const activitiesString = activities.join("_");
+  const hype = activities.map((activity) => {
+    activity.split(' ').join('-');
+  });
+  const activitiesString = hype.join("_");
   const itemsString = items.join("_");
   const categoriesString = categories.join("_");
   const url = `${SERVER_NAME}/taggings/`;
-
   return fetch(url, {
     method: 'POST',
     headers: {

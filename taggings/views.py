@@ -19,6 +19,7 @@ class TaggingIndex(APIView):
 
         for (item, category) in zip(items, categories):
             for activity in activities:
+                activity = activity.split('-').join(' ')
                 data = {"item": item, "activity": activity, "category":category}
                 tag = Tagging.objects.filter(item=item, activity=activity)
                 if tag:
@@ -36,7 +37,11 @@ class TaggingIndex(APIView):
 class TaggingTrip(APIView):
 
     def get(self, request, format=None):
-        activities = request.GET.get('activities').split('_')
+        hyp_activities = request.GET.get('activities').split('_')
+        activities = []
+        for activity in hyp_activities:
+            activities.push(activity.split('-').join(' '))
+            
         limit = int(request.GET.get('limit'))
         tags = Tagging.objects.filter(activity__in=activities).order_by('-count')[:limit]
         serializer = TaggingSerializer(tags, many=True)
