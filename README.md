@@ -13,7 +13,7 @@ PackOnce users don't have to start from scratch when they're building their pack
 
 ## Demo
 
-You can try PackOnce in your browser on a simulated phone at its [webpage](https://joshgelbard.github.io/PackOnce).
+You can try PackOnce in your browser on a simulated phone at its [webpage](https://packonce.github.io).
 
 ![Home Screen Screenshot](/docs/home_screen.png)
 
