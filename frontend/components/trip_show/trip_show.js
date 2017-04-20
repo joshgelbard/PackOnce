@@ -77,7 +77,9 @@ class TripShow extends React.Component {
         value={this.state.itemName}
         style={[styles.newItemHidden, condition && styles.newItemShow]}
         placeholder="Type here!"
-        onChangeText={(itemName) => this.setState({itemName})}
+        onChangeText={(itemName) => {
+          this.setState({itemName});
+        }}
         onSubmitEditing={() => {
           this.setState({visible: false, itemName: "", activeHeader: ""});
           this.addRow(sectionId);
@@ -86,9 +88,9 @@ class TripShow extends React.Component {
       </View>
     );
   }
-
+  
   addRow(sectionId) {
-    this.rows[sectionId].push({name: this.state.itemName, checked: false, category: sectionId});
+    this.rows[sectionId].push({item: this.state.itemName, checked: false, category: sectionId});
     this.setState({dataSource: this.state.dataSource
       .cloneWithRowsAndSections(this.rows)});
   }
