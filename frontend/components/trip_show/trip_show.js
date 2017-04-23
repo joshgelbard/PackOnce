@@ -35,6 +35,7 @@ class TripShow extends React.Component {
       userChooseTitle: false,
       dataSource: ds.cloneWithRowsAndSections(this.rows),
       itemName: "",
+      categoryName: "",
       visible: false,
       activeHeader: ""
     };
@@ -62,8 +63,27 @@ class TripShow extends React.Component {
 
   renderSectionHeader(sectionRows, sectionId) {
     // let condition = (this.state.activeHeader === sectionId && this.state.visible);
-    let condition = (this.state.visible);
+    // let condition = (this.state.visible);
 
+    let text1;
+    if (this.state.activeHeader === sectionId && this.state.visible) {
+      text1 =
+      <TextInput
+        value={this.state.itemName}
+        style={styles.newItemShow}
+        placeholder="Type here!"
+        onChangeText={(itemName) => {
+          this.setState({itemName}, () => console.log(this.state.itemName));
+        }}
+        onSubmitEditing={() => {
+          this.addRow(sectionId);
+          this.setState({visible: false, itemName: "", activeHeader: ""});
+        }}
+      />;
+    } else {
+      text1 =
+      <Text></Text>;
+    }
     return (
       <View>
       <View style={styles.header}>
@@ -73,22 +93,11 @@ class TripShow extends React.Component {
             .cloneWithRowsAndSections(this.rows)});
         }}/>
       </View>
-      <TextInput
-        value={this.state.itemName}
-        style={[styles.newItemHidden, condition && styles.newItemShow]}
-        placeholder="Type here!"
-        onChangeText={(itemName) => {
-          this.setState({itemName});
-        }}
-        onSubmitEditing={() => {
-          this.setState({visible: false, itemName: "", activeHeader: ""});
-          this.addRow(sectionId);
-        }}
-      />
+      {text1}
       </View>
     );
   }
-  
+
   addRow(sectionId) {
     this.rows[sectionId].push({item: this.state.itemName, checked: false, category: sectionId});
     this.setState({dataSource: this.state.dataSource
@@ -96,8 +105,8 @@ class TripShow extends React.Component {
   }
 
   addHeader() {
-    if (!this.rows[this.state.itemName]) {
-      this.rows[this.state.itemName] = [];
+    if (!this.rows[this.state.categoryName]) {
+      this.rows[this.state.categoryName] = [];
     }
     this.setState({dataSource: this.state.dataSource
       .cloneWithRowsAndSections(this.rows)});
@@ -173,14 +182,14 @@ class TripShow extends React.Component {
           }}
         />
         <TextInput
-          value={this.state.itemName}
+          value={this.state.categoryName}
           style={styles.textInput}
           placeholder="Type here!"
-          onChangeText={(itemName) => this.setState({itemName})}
+          onChangeText={(categoryName) => this.setState({categoryName})}
           onSubmitEditing={() => {
             styles.textInput={display: "none"};
             this.addHeader();
-            this.setState({itemName: ""});
+            this.setState({categoryName: ""});
           }}
         />
         <KeyboardAwareScrollView>
