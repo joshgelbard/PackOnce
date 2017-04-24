@@ -15,7 +15,7 @@ PackOnce users don't have to start from scratch when they're building their pack
 
 You can try PackOnce in your browser on a simulated phone at its [webpage](https://packonce.github.io).
 
-![Home Screen Screenshot](/docs/home_screen.png)
+![Home Screen Screenshot](/docs/packonce_original_gif.gif)
 
 ## How it works
 
