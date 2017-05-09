@@ -118,10 +118,10 @@ class TripShow extends React.Component {
     let items = [];
     categories.forEach( category => {
       this.rows[category].forEach(item => {
-        items.push(item.item);
+        items.push( { item: item.item, category })
       });
     });
-    this.props.sendTaggedTripItems(items, activities, categories);
+    this.props.sendTaggedTripItems(items, activities);
     const trip = { id: this.props.id,
        name: this.state.tripName,
        activities: this.props.activities,

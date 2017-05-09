@@ -28,13 +28,7 @@ export const arrayToIdKeyedObject = (array) => {
 };
 
 
-export const sendTaggedTripItems = (items, activities, categories) => {
-  const hype = activities.map((activity) => {
-    activity.split(' ').join('-');
-  });
-  const activitiesString = hype.join("_");
-  const itemsString = items.join("_");
-  const categoriesString = categories.join("_");
+export const sendTaggedTripItems = (items, activities) => {
   const url = `${SERVER_NAME}/taggings/`;
   return fetch(url, {
     method: 'POST',
@@ -42,8 +36,6 @@ export const sendTaggedTripItems = (items, activities, categories) => {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ items: itemsString, activities: activitiesString,
-      categories: categoriesString
-    })
+    body: JSON.stringify({ items, activities })
   });
 };

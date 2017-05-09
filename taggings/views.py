@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from taggings.models import Tagging
 from taggings.serializers import TaggingSerializer
+import json
 
 class TaggingIndex(APIView):
 
@@ -13,15 +14,13 @@ class TaggingIndex(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        items = request.data['items'].split('_')
-        activities = request.data['activities'].split('_')
-        categories = request.data['categories'].split('_')
-
-        for (item, category) in zip(items, categories):
+        received_json_data = json.loads(request.body.decode("utf-8"))
+        items = received_json_data['items']
+        activities = received_json_data['activities']
+        for item in items:
             for activity in activities:
-                activity = ' '.join(activity.split('-'))
-                data = {"item": item, "activity": activity, "category":category}
-                tag = Tagging.objects.filter(item=item, activity=activity)
+                data = {"item": item['item'], "activity": activity, "category": item['category']}
+                tag = Tagging.objects.filter(item=item['item'], activity=activity)
                 if tag:
                     tag[0].count += 1
                     tag[0].save()
